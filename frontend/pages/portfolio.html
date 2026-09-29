@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Portfolio | 7 WINGS</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
+
+/* ================= PORTFOLIO ================= */
+
+.portfolio-preview {
+
+    background: #080b14;
+
+    border: 1px solid #272e42;
+
+    border-radius: 15px;
+
+    padding: 35px;
+
+    min-height: 500px;
+
+}
+
+.portfolio-name {
+
+    font-size: 38px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+
+}
+
+.portfolio-role {
+
+    color: #777fff;
+
+    margin-bottom: 20px;
+
+}
+
+.portfolio-links {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin: 20px 0;
+
+}
+
+.social-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 9px 13px;
+
+    background: #151b2b;
+
+    border: 1px solid #293147;
+
+    border-radius: 8px;
+
+    color: #c4cada;
+
+    font-size: 12px;
+
+    transition: 0.2s;
+
+}
+
+.social-link:hover {
+
+    border-color: #6259ff;
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
+/* ================= PROJECTS ================= */
+
+.project-input {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
+
+}
+
+.project-input input {
+
+    flex: 1;
+
+}
+
+.remove-project {
+
+    width: 42px;
+
+    border: 1px solid #3a2730;
+
+    background: #1d1419;
+
+    color: #ff8585;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+}
+
+.remove-project:hover {
+
+    background: #2a1a20;
+
+}
+
+.add-project {
+
+    width: 100%;
+
+    border: 1px dashed #39415a;
+
+    background: transparent;
+
+    color: #858da3;
+
+    padding: 11px;
+
+    border-radius: 9px;
+
+    margin-top: 5px;
+
+    transition: 0.2s;
+
+}
+
+.add-project:hover {
+
+    border-color: #6259ff;
+
+    color: white;
+
+    background: #111625;
+
+}
+
+/* ================= PROJECT PREVIEW ================= */
+
+.project-card {
+
+    background: #151b2b;
+
+    border: 1px solid #202638;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    margin-top: 12px;
+
+    color: #dce1ed;
+
+    transition: 0.2s;
+
+}
+
+.project-card:hover {
+
+    border-color: #6259ff;
+
+    transform: translateY(-2px);
+
+}
+
+.no-projects {
+
+    color: #68718a;
+
+    font-size: 13px;
+
+    margin-top: 12px;
+
+}
+
+@media(max-width: 900px) {
+
+    .grid-2 {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<span>7</span> WINGS
+
+</div>
+
+<div class="label">
+
+PLATFORM
+
+</div>
+
+<nav class="menu">
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+<a href="tasks.html">
+Task Manager
+</a>
+
+<a href="resume.html">
+Resume Builder
+</a>
+
+<a href="interview.html">
+Interview Prep
+</a>
+
+<a href="knowledge.html">
+AI Knowledge
+</a>
+
+<a href="calculator.html">
+Calculator
+</a>
+
+<a href="portfolio.html" class="active">
+Portfolio
+</a>
+
+<a href="information.html">
+Information
+</a>
+
+</nav>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+<div class="topbar">
+
+<div class="eyebrow">
+PORTFOLIO BUILDER
+</div>
+
+<h1>
+Create your online presence.
+</h1>
+
+<p class="subtitle">
+Build a professional portfolio and showcase all your projects.
+</p>
+
+</div>
+
+
+<div class="grid-2">
+
+
+<!-- ================= FORM ================= -->
+
+<div class="panel">
+
+<div class="panel-title">
+Portfolio Details
+</div>
+
+<br>
+
+
+<!-- NAME -->
+
+<div class="form-group">
+
+<label>
+Name
+</label>
+
+<input
+    id="name"
+    placeholder="Your Name"
+>
+
+</div>
+
+
+<!-- ROLE -->
+
+<div class="form-group">
+
+<label>
+Role
+</label>
+
+<input
+    id="role"
+    placeholder="ECE Student | Developer"
+>
+
+</div>
+
+
+<!-- ABOUT -->
+
+<div class="form-group">
+
+<label>
+About
+</label>
+
+<textarea
+    id="about"
+    placeholder="Tell something about yourself..."
+></textarea>
+
+</div>
+
+
+<!-- SKILLS -->
+
+<div class="form-group">
+
+<label>
+Skills
+</label>
+
+<input
+    id="skills"
+    placeholder="C++, HTML, Electronics"
+>
+
+</div>
+
+
+<!-- LINKEDIN -->
+
+<div class="form-group">
+
+<label>
+LinkedIn URL
+</label>
+
+<input
+    id="linkedin"
+    type="url"
+    placeholder="https://www.linkedin.com/in/yourname"
+>
+
+</div>
+
+
+<!-- GITHUB -->
+
+<div class="form-group">
+
+<label>
+GitHub URL
+</label>
+
+<input
+    id="github"
+    type="url"
+    placeholder="https://github.com/yourusername"
+>
+
+</div>
+
+
+<!-- ================= PROJECTS ================= -->
+
+<div class="form-group">
+
+<label>
+Projects
+</label>
+
+<div id="projectInputs">
+
+<div class="project-input">
+
+<input
+    type="text"
+    class="project-field"
+    placeholder="Project 1"
+    oninput="updateProjects()"
+>
+
+</div>
+
+</div>
+
+
+<button
+    type="button"
+    class="add-project"
+    onclick="addProject()"
+>
+
++ Add Project
+
+</button>
+
+</div>
+
+
+<br>
+
+<button
+    class="btn primary"
+    onclick="savePortfolio()"
+>
+
+Save Portfolio
+
+</button>
+
+</div>
+
+
+<!-- ================= PREVIEW ================= -->
+
+<div class="portfolio-preview">
+
+<div
+    class="portfolio-name"
+    id="previewName"
+>
+
+Your Name
+
+</div>
+
+
+<div
+    class="portfolio-role"
+    id="previewRole"
+>
+
+Your Professional Role
+
+</div>
+
+
+<p id="previewAbout">
+
+Your introduction will appear here.
+
+</p>
+
+
+<!-- SOCIAL LINKS -->
+
+<div
+    class="portfolio-links"
+    id="socialLinks"
+>
+
+</div>
+
+
+<br>
+
+
+<h3>
+Skills
+</h3>
+
+<p
+    id="previewSkills"
+    style="
+        color:#858da3;
+        margin-top:8px;
+    "
+>
+
+Your skills
+
+</p>
+
+
+<br>
+
+
+<h3>
+Projects
+</h3>
+
+
+<div id="projectPreview">
+
+<div class="no-projects">
+
+Your projects will appear here.
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   FIREBASE / BACKEND API
+   ========================================================= */
+
+const API_URL = "/api/portfolio";
+
+
+/* ================= FIELDS ================= */
+
+const fields = [
+
+    "name",
+
+    "role",
+
+    "about",
+
+    "skills",
+
+    "linkedin",
+
+    "github"
+
+];
+
+
+fields.forEach(id => {
+
+    document
+        .getElementById(id)
+        .addEventListener(
+            "input",
+            update
+        );
+
+});
+
+
+/* ================= PROJECT COUNT ================= */
+
+let projectCount = 1;
+
+
+/* ================= CURRENT PORTFOLIO ID ================= */
+
+let currentPortfolioId = null;
+
+
+/* ================= UPDATE MAIN PREVIEW ================= */
+
+function update() {
+
+    document
+        .getElementById("previewName")
+        .textContent =
+
+        document
+            .getElementById("name")
+            .value ||
+
+        "Your Name";
+
+
+    document
+        .getElementById("previewRole")
+        .textContent =
+
+        document
+            .getElementById("role")
+            .value ||
+
+        "Your Professional Role";
+
+
+    document
+        .getElementById("previewAbout")
+        .textContent =
+
+        document
+            .getElementById("about")
+            .value ||
+
+        "Your introduction will appear here.";
+
+
+    document
+        .getElementById("previewSkills")
+        .textContent =
+
+        document
+            .getElementById("skills")
+            .value ||
+
+        "Your skills";
+
+
+    updateSocialLinks();
+
+    updateProjects();
+
+}
+
+
+/* ================= SOCIAL LINKS ================= */
+
+function updateSocialLinks() {
+
+    const linkedin =
+
+        document
+            .getElementById("linkedin")
+            .value
+            .trim();
+
+
+    const github =
+
+        document
+            .getElementById("github")
+            .value
+            .trim();
+
+
+    const socialLinks =
+
+        document
+            .getElementById("socialLinks");
+
+
+    socialLinks.innerHTML = "";
+
+
+    if (linkedin) {
+
+        const link =
+            document.createElement("a");
+
+        link.href = linkedin;
+
+        link.target = "_blank";
+
+        link.rel =
+            "noopener noreferrer";
+
+        link.className =
+            "social-link";
+
+        link.innerHTML =
+            "💼 LinkedIn ↗";
+
+        socialLinks.appendChild(link);
+
+    }
+
+
+    if (github) {
+
+        const link =
+            document.createElement("a");
+
+        link.href = github;
+
+        link.target = "_blank";
+
+        link.rel =
+            "noopener noreferrer";
+
+        link.className =
+            "social-link";
+
+        link.innerHTML =
+            "💻 GitHub ↗";
+
+        socialLinks.appendChild(link);
+
+    }
+
+}
+
+
+/* ================= ADD PROJECT ================= */
+
+function addProject() {
+
+    projectCount++;
+
+    const container =
+
+        document.getElementById(
+            "projectInputs"
+        );
+
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "project-input";
+
+
+    wrapper.innerHTML = `
+
+        <input
+            type="text"
+            class="project-field"
+            placeholder="Project ${projectCount}"
+            oninput="updateProjects()"
+        >
+
+        <button
+            type="button"
+            class="remove-project"
+            onclick="removeProject(this)"
+        >
+            ×
+        </button>
+
+    `;
+
+
+    container.appendChild(wrapper);
+
+    updateProjects();
+
+}
+
+
+/* ================= REMOVE PROJECT ================= */
+
+function removeProject(button) {
+
+    button
+        .parentElement
+        .remove();
+
+    updateProjectPlaceholders();
+
+    updateProjects();
+
+}
+
+
+/* ================= UPDATE PLACEHOLDERS ================= */
+
+function updateProjectPlaceholders() {
+
+    const inputs =
+
+        document.querySelectorAll(
+            ".project-field"
+        );
+
+
+    inputs.forEach(
+        (input, index) => {
+
+            input.placeholder =
+                `Project ${index + 1}`;
+
+        }
+    );
+
+
+    projectCount =
+        inputs.length;
+
+}
+
+
+/* ================= UPDATE PROJECT PREVIEW ================= */
+
+function updateProjects() {
+
+    const inputs =
+
+        document.querySelectorAll(
+            ".project-field"
+        );
+
+
+    const preview =
+
+        document.getElementById(
+            "projectPreview"
+        );
+
+
+    preview.innerHTML = "";
+
+
+    let hasProject = false;
+
+
+    inputs.forEach(
+        (input) => {
+
+            const value =
+                input.value.trim();
+
+
+            if (value) {
+
+                hasProject = true;
+
+
+                const project =
+                    document.createElement("div");
+
+
+                project.className =
+                    "project-card";
+
+
+                project.textContent =
+                    value;
+
+
+                preview.appendChild(
+                    project
+                );
+
+            }
+
+        }
+    );
+
+
+    if (!hasProject) {
+
+        preview.innerHTML = `
+
+            <div class="no-projects">
+
+                Your projects will appear here.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   COLLECT PORTFOLIO DATA
+   ========================================================= */
+
+function collectPortfolioData() {
+
+    const data = {};
+
+    fields.forEach(id => {
+
+        data[id] =
+            document
+                .getElementById(id)
+                .value
+                .trim();
+
+    });
+
+
+    const projects = [];
+
+    document
+        .querySelectorAll(".project-field")
+        .forEach(input => {
+
+            const value =
+                input.value.trim();
+
+            if (value) {
+
+                projects.push(value);
+
+            }
+
+        });
+
+
+    data.projects = projects;
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   SAVE PORTFOLIO TO FIREBASE
+   ========================================================= */
+
+async function savePortfolio() {
+
+    const data =
+        collectPortfolioData();
+
+
+    try {
+
+        let response;
+
+
+        /* UPDATE EXISTING PORTFOLIO */
+
+        if (currentPortfolioId) {
+
+            response =
+                await fetch(
+                    `${API_URL}/${currentPortfolioId}`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+        }
+
+        /* CREATE NEW PORTFOLIO */
+
+        else {
+
+            response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok || !result.success) {
+
+            throw new Error(
+                result.message ||
+                "Firebase save failed"
+            );
+
+        }
+
+
+        if (result.portfolio) {
+
+            currentPortfolioId =
+                result.portfolio.id;
+
+        }
+
+
+        /* LOCAL BACKUP */
+
+        localStorage.setItem(
+            "sevenWingsPortfolio",
+            JSON.stringify(data)
+        );
+
+
+        alert(
+            "Portfolio saved successfully!"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Portfolio Firebase error:",
+            error
+        );
+
+
+        /* LOCAL BACKUP IF SERVER FAILS */
+
+        localStorage.setItem(
+            "sevenWingsPortfolio",
+            JSON.stringify(data)
+        );
+
+
+        alert(
+            "Portfolio saved locally, but Firebase save failed."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PORTFOLIO FROM FIREBASE
+   ========================================================= */
+
+async function loadPortfolioFromFirebase() {
+
+    try {
+
+        const response =
+            await fetch(API_URL);
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            response.ok &&
+            result.success &&
+            result.count > 0 &&
+            result.portfolios &&
+            result.portfolios.length > 0
+        ) {
+
+            const portfolio =
+                result.portfolios[0];
+
+
+            currentPortfolioId =
+                portfolio.id;
+
+
+            fields.forEach(id => {
+
+                document
+                    .getElementById(id)
+                    .value =
+                    portfolio[id] || "";
+
+            });
+
+
+            loadProjects(
+                portfolio.projects || []
+            );
+
+
+            update();
+
+
+            /* Keep local backup updated */
+
+            localStorage.setItem(
+                "sevenWingsPortfolio",
+                JSON.stringify(portfolio)
+            );
+
+
+            return true;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Firebase portfolio load error:",
+            error
+        );
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================================================
+   LOAD PROJECTS
+   ========================================================= */
+
+function loadProjects(projects) {
+
+    const container =
+        document.getElementById(
+            "projectInputs"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        Array.isArray(projects) &&
+        projects.length > 0
+    ) {
+
+        projects.forEach(
+            (project, index) => {
+
+                const wrapper =
+                    document.createElement("div");
+
+
+                wrapper.className =
+                    "project-input";
+
+
+                wrapper.innerHTML = `
+
+                    <input
+                        type="text"
+                        class="project-field"
+                        value="${escapeHTML(project)}"
+                        placeholder="Project ${index + 1}"
+                        oninput="updateProjects()"
+                    >
+
+                    ${
+                        index === 0
+                        ? ""
+                        : `
+                        <button
+                            type="button"
+                            class="remove-project"
+                            onclick="removeProject(this)"
+                        >
+                            ×
+                        </button>
+                        `
+                    }
+
+                `;
+
+
+                container.appendChild(
+                    wrapper
+                );
+
+            }
+        );
+
+
+        projectCount =
+            projects.length;
+
+    }
+
+    else {
+
+        container.innerHTML = `
+
+            <div class="project-input">
+
+                <input
+                    type="text"
+                    class="project-field"
+                    placeholder="Project 1"
+                    oninput="updateProjects()"
+                >
+
+            </div>
+
+        `;
+
+
+        projectCount = 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD LOCAL BACKUP
+   ========================================================= */
+
+function loadPortfolioFromLocalStorage() {
+
+    const data =
+
+        JSON.parse(
+
+            localStorage.getItem(
+                "sevenWingsPortfolio"
+            ) || "{}"
+
+        );
+
+
+    fields.forEach(id => {
+
+        if (data[id]) {
+
+            document
+                .getElementById(id)
+                .value = data[id];
+
+        }
+
+    });
+
+
+    if (
+        data.projects &&
+        Array.isArray(data.projects)
+    ) {
+
+        loadProjects(
+            data.projects
+        );
+
+    }
+
+
+    update();
+
+}
+
+
+/* ================= ESCAPE HTML ================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+async function initializePortfolio() {
+
+    /*
+       First use local data immediately
+       so the UI loads without waiting.
+    */
+
+    loadPortfolioFromLocalStorage();
+
+
+    /*
+       Then try Firebase.
+       Firebase data will replace local data
+       if it exists.
+    */
+
+    await loadPortfolioFromFirebase();
+
+}
+
+
+initializePortfolio();
+
+</script>
+
+
+</body>
+
+</html>

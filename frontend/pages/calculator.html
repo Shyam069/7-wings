@@ -1,0 +1,3358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Scientific Calculator | 7 WINGS</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+<style>
+
+/* =====================================================
+   CALCULATOR
+===================================================== */
+
+.calculator-layout {
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+
+    gap: 22px;
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+.calculator-tabs {
+
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 20px;
+
+}
+
+
+.calc-tab {
+
+    border: 1px solid #293147;
+
+    background: #151b2b;
+
+    color: #929ab0;
+
+    padding: 10px 15px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: .2s;
+
+}
+
+
+.calc-tab:hover {
+
+    color: white;
+
+    border-color: #46506c;
+
+}
+
+
+.calc-tab.active {
+
+    background: linear-gradient(
+        135deg,
+        #6259ff,
+        #825cff
+    );
+
+    border-color: transparent;
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   DISPLAY
+===================================================== */
+
+.calc-display {
+
+    background: #080b14;
+
+    border: 1px solid #272e42;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.expression {
+
+    min-height: 25px;
+
+    color: #68718a;
+
+    font-size: 13px;
+
+    text-align: right;
+
+    word-break: break-all;
+
+}
+
+
+.result {
+
+    min-height: 45px;
+
+    color: white;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    text-align: right;
+
+    word-break: break-all;
+
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+   MODE
+===================================================== */
+
+.calc-toolbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 14px;
+
+}
+
+
+.angle-mode {
+
+    display: flex;
+
+    gap: 5px;
+
+}
+
+
+.mode-btn {
+
+    border: 1px solid #293147;
+
+    background: #101522;
+
+    color: #7e879d;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.mode-btn.active {
+
+    background: #6259ff;
+
+    color: white;
+
+    border-color: #6259ff;
+
+}
+
+
+/* =====================================================
+   KEYPAD
+===================================================== */
+
+.keypad {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, minmax(50px, 1fr));
+
+    gap: 8px;
+
+}
+
+
+.calc-key {
+
+    min-height: 52px;
+
+    border: 1px solid #272e42;
+
+    background: #151b2b;
+
+    color: #e2e6f0;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    transition: .15s;
+
+}
+
+
+.calc-key:hover {
+
+    background: #20283c;
+
+    border-color: #46506c;
+
+    transform: translateY(-1px);
+
+}
+
+
+.calc-key.operator {
+
+    color: #9992ff;
+
+}
+
+
+.calc-key.function {
+
+    color: #aeb6c9;
+
+    font-size: 12px;
+
+}
+
+
+.calc-key.constant {
+
+    color: #6de0b4;
+
+}
+
+
+.calc-key.equal {
+
+    background: linear-gradient(
+        135deg,
+        #6259ff,
+        #825cff
+    );
+
+    border-color: transparent;
+
+    color: white;
+
+}
+
+
+.calc-key.danger {
+
+    color: #ff8585;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.history-list {
+
+    max-height: 520px;
+
+    overflow-y: auto;
+
+}
+
+
+.history-item {
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #202638;
+
+}
+
+
+.history-expression {
+
+    color: #68718a;
+
+    font-size: 11px;
+
+    margin-bottom: 5px;
+
+    word-break: break-all;
+
+}
+
+
+.history-result {
+
+    color: #e5e8f1;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    word-break: break-all;
+
+}
+
+
+.history-use {
+
+    margin-top: 7px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #777fff;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.empty-history {
+
+    color: #68718a;
+
+    font-size: 13px;
+
+    text-align: center;
+
+    padding: 35px 10px;
+
+}
+
+
+/* =====================================================
+   CONVERTER
+===================================================== */
+
+.converter {
+
+    display: none;
+
+}
+
+
+.converter.active {
+
+    display: block;
+
+}
+
+
+.converter-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+}
+
+
+.converter-result {
+
+    margin-top: 18px;
+
+    background: #0b0f19;
+
+    border: 1px solid #272e42;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+}
+
+
+.converter-result-label {
+
+    color: #68718a;
+
+    font-size: 11px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.converter-result-value {
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    word-break: break-word;
+
+}
+
+
+/* =====================================================
+   ALGEBRA
+===================================================== */
+
+.algebra-section {
+
+    display: none;
+
+}
+
+
+.algebra-section.active {
+
+    display: block;
+
+}
+
+
+.equation-box {
+
+    background: #0b0f19;
+
+    border: 1px solid #272e42;
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    margin-top: 15px;
+
+    color: #bfc6d8;
+
+    line-height: 1.7;
+
+}
+
+
+.solution {
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background: #151b2b;
+
+    border-radius: 10px;
+
+    color: #6de0b4;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1050px) {
+
+    .calculator-layout {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media(max-width:750px) {
+
+    .keypad {
+
+        grid-template-columns:
+            repeat(4, minmax(50px, 1fr));
+
+    }
+
+    .converter-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media(max-width:450px) {
+
+    .calc-key {
+
+        min-height: 48px;
+
+        font-size: 11px;
+
+    }
+
+    .result {
+
+        font-size: 25px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+<div class="logo">
+
+<span>7</span> WINGS
+
+</div>
+
+
+<div class="label">
+
+PLATFORM
+
+</div>
+
+
+<nav class="menu">
+
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+
+<a href="tasks.html">
+Task Manager
+</a>
+
+
+<a href="resume.html">
+Resume Builder
+</a>
+
+
+<a href="interview.html">
+Interview Prep
+</a>
+
+
+<a href="knowledge.html">
+AI Knowledge
+</a>
+
+
+<a
+    href="calculator.html"
+    class="active"
+>
+Calculator
+</a>
+
+
+<a href="portfolio.html">
+Portfolio
+</a>
+
+
+<a href="information.html">
+Information
+</a>
+
+
+</nav>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<div class="topbar">
+
+<div class="eyebrow">
+SCIENTIFIC CALCULATOR
+</div>
+
+<h1>
+Calculate anything.
+</h1>
+
+<p class="subtitle">
+Scientific, algebraic and unit conversion tools in one place.
+</p>
+
+</div>
+
+
+
+<!-- =====================================================
+     TABS
+===================================================== -->
+
+<div class="calculator-tabs">
+
+<button
+    class="calc-tab active"
+    onclick="showTab('scientific', this)"
+>
+    Scientific
+</button>
+
+
+<button
+    class="calc-tab"
+    onclick="showTab('algebra', this)"
+>
+    Algebra
+</button>
+
+
+<button
+    class="calc-tab"
+    onclick="showTab('converter', this)"
+>
+    Converters
+</button>
+
+</div>
+
+
+
+<!-- =====================================================
+     SCIENTIFIC
+===================================================== -->
+
+<div
+    id="scientific"
+    class="calculator-section"
+>
+
+
+<div class="calculator-layout">
+
+
+<!-- CALCULATOR -->
+
+<section class="panel">
+
+
+<div class="calc-toolbar">
+
+
+<div class="angle-mode">
+
+<button
+    id="degBtn"
+    class="mode-btn active"
+    onclick="setAngleMode('DEG')"
+>
+DEG
+</button>
+
+
+<button
+    id="radBtn"
+    class="mode-btn"
+    onclick="setAngleMode('RAD')"
+>
+RAD
+</button>
+
+</div>
+
+
+<button
+    class="btn"
+    onclick="clearCalculator()"
+>
+Clear
+</button>
+
+</div>
+
+
+
+<div class="calc-display">
+
+
+<div
+    id="expression"
+    class="expression"
+>
+0
+</div>
+
+
+<div
+    id="result"
+    class="result"
+>
+0
+</div>
+
+
+</div>
+
+
+
+<div class="keypad">
+
+
+<!-- ROW 1 -->
+
+<button
+    class="calc-key danger"
+    onclick="clearCalculator()"
+>
+AC
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="backspace()"
+>
+⌫
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('(')"
+>
+(
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append(')')"
+>
+)
+</button>
+
+
+<button
+    class="calc-key constant"
+    onclick="append('pi')"
+>
+π
+</button>
+
+
+<button
+    class="calc-key constant"
+    onclick="append('e')"
+>
+e
+</button>
+
+
+
+<!-- ROW 2 -->
+
+<button
+    class="calc-key function"
+    onclick="append('sin(')"
+>
+sin
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('cos(')"
+>
+cos
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('tan(')"
+>
+tan
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('asin(')"
+>
+sin⁻¹
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('acos(')"
+>
+cos⁻¹
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('atan(')"
+>
+tan⁻¹
+</button>
+
+
+
+<!-- ROW 3 -->
+
+<button
+    class="calc-key function"
+    onclick="append('sinh(')"
+>
+sinh
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('cosh(')"
+>
+cosh
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('tanh(')"
+>
+tanh
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('log(')"
+>
+log
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('ln(')"
+>
+ln
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('exp(')"
+>
+eˣ
+</button>
+
+
+
+<!-- ROW 4 -->
+
+<button
+    class="calc-key function"
+    onclick="append('sqrt(')"
+>
+√
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('cbrt(')"
+>
+∛
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="squareCurrent()"
+>
+x²
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="cubeCurrent()"
+>
+x³
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('^')"
+>
+xʸ
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('%')"
+>
+%
+</button>
+
+
+
+<!-- ROW 5 -->
+
+<button
+    class="calc-key"
+    onclick="append('7')"
+>
+7
+</button>
+
+
+<button
+    class="calc-key"
+    onclick="append('8')"
+>
+8
+</button>
+
+
+<button
+    class="calc-key"
+    onclick="append('9')"
+>
+9
+</button>
+
+
+<button
+    class="calc-key operator"
+    onclick="append('/')"
+>
+÷
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('abs(')"
+>
+abs
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('floor(')"
+>
+floor
+</button>
+
+
+
+<!-- ROW 6 -->
+
+<button
+    class="calc-key"
+    onclick="append('4')"
+>
+4
+</button>
+
+
+<button
+    class="calc-key"
+    onclick="append('5')"
+>
+5
+</button>
+
+
+<button
+    class="calc-key"
+    onclick="append('6')"
+>
+6
+</button>
+
+
+<button
+    class="calc-key operator"
+    onclick="append('*')"
+>
+×
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('ceil(')"
+>
+ceil
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('round(')"
+>
+round
+</button>
+
+
+
+<!-- ROW 7 -->
+
+<button
+    class="calc-key"
+    onclick="append('1')"
+>
+1
+</button>
+
+
+<button
+    class="calc-key"
+    onclick="append('2')"
+>
+2
+</button>
+
+
+<button
+    class="calc-key"
+    onclick="append('3')"
+>
+3
+</button>
+
+
+<button
+    class="calc-key operator"
+    onclick="append('-')"
+>
+−
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="factorialCurrent()"
+>
+n!
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('10^')"
+>
+10ˣ
+</button>
+
+
+
+<!-- ROW 8 -->
+
+<button
+    class="calc-key"
+    onclick="append('0')"
+>
+0
+</button>
+
+
+<button
+    class="calc-key"
+    onclick="append('.')"
+>
+.
+</button>
+
+
+<button
+    class="calc-key constant"
+    onclick="append('phi')"
+>
+φ
+</button>
+
+
+<button
+    class="calc-key operator"
+    onclick="append('+')"
+>
++
+</button>
+
+
+<button
+    class="calc-key function"
+    onclick="append('rand(')"
+>
+RAND
+</button>
+
+
+<button
+    class="calc-key equal"
+    onclick="calculate()"
+>
+=
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- HISTORY -->
+
+<section class="panel">
+
+
+<div class="panel-header">
+
+<div class="panel-title">
+History
+</div>
+
+
+<button
+    class="btn danger"
+    onclick="clearHistory()"
+>
+Clear
+</button>
+
+</div>
+
+
+<div
+    id="history"
+    class="history-list"
+>
+
+<div class="empty-history">
+No calculations yet.
+</div>
+
+</div>
+
+
+</section>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ALGEBRA
+===================================================== -->
+
+<div
+    id="algebra"
+    class="algebra-section"
+>
+
+
+<div class="grid-2">
+
+
+<!-- LINEAR -->
+
+<section class="panel">
+
+
+<div class="panel-title">
+Linear Equation
+</div>
+
+
+<p class="subtitle">
+Solve equations in the form ax + b = 0.
+</p>
+
+
+<br>
+
+
+<div class="converter-grid">
+
+
+<div class="form-group">
+
+<label>
+a
+</label>
+
+<input
+    id="linearA"
+    type="number"
+    step="any"
+    value="2"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+b
+</label>
+
+<input
+    id="linearB"
+    type="number"
+    step="any"
+    value="-10"
+>
+
+</div>
+
+</div>
+
+
+<button
+    class="btn primary"
+    onclick="solveLinear()"
+>
+Solve
+</button>
+
+
+<div
+    id="linearSolution"
+    class="solution"
+>
+x = 5
+</div>
+
+</section>
+
+
+
+<!-- QUADRATIC -->
+
+<section class="panel">
+
+
+<div class="panel-title">
+Quadratic Equation
+</div>
+
+
+<p class="subtitle">
+Solve ax² + bx + c = 0.
+</p>
+
+
+<br>
+
+
+<div class="converter-grid">
+
+
+<div class="form-group">
+
+<label>
+a
+</label>
+
+<input
+    id="quadA"
+    type="number"
+    step="any"
+    value="1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+b
+</label>
+
+<input
+    id="quadB"
+    type="number"
+    step="any"
+    value="-5"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+c
+</label>
+
+<input
+    id="quadC"
+    type="number"
+    step="any"
+    value="6"
+>
+
+</div>
+
+</div>
+
+
+<button
+    class="btn primary"
+    onclick="solveQuadratic()"
+>
+Solve
+</button>
+
+
+<div
+    id="quadraticSolution"
+    class="solution"
+>
+x₁ = 3, x₂ = 2
+</div>
+
+</section>
+
+
+
+<!-- COMBINATORICS -->
+
+<section class="panel">
+
+
+<div class="panel-title">
+Combinatorics
+</div>
+
+
+<p class="subtitle">
+Calculate permutations and combinations.
+</p>
+
+
+<br>
+
+
+<div class="form-group">
+
+<label>
+n
+</label>
+
+<input
+    id="combN"
+    type="number"
+    min="0"
+    value="5"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+r
+</label>
+
+<input
+    id="combR"
+    type="number"
+    min="0"
+    value="2"
+>
+
+</div>
+
+
+<button
+    class="btn"
+    onclick="calculateCombinations()"
+>
+Calculate
+</button>
+
+
+<div
+    id="combSolution"
+    class="solution"
+>
+nPr = 20<br>
+nCr = 10
+</div>
+
+</section>
+
+
+
+<!-- GCD LCM -->
+
+<section class="panel">
+
+
+<div class="panel-title">
+Number Theory
+</div>
+
+
+<p class="subtitle">
+Calculate GCD and LCM.
+</p>
+
+
+<br>
+
+
+<div class="form-group">
+
+<label>
+First Number
+</label>
+
+<input
+    id="numA"
+    type="number"
+    value="12"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Second Number
+</label>
+
+<input
+    id="numB"
+    type="number"
+    value="18"
+>
+
+</div>
+
+
+<button
+    class="btn"
+    onclick="calculateGcdLcm()"
+>
+Calculate
+</button>
+
+
+<div
+    id="numberSolution"
+    class="solution"
+>
+GCD = 6<br>
+LCM = 36
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CONVERTERS
+===================================================== -->
+
+<div
+    id="converter"
+    class="converter"
+>
+
+
+<div class="panel">
+
+
+<div class="panel-header">
+
+<div>
+
+<div class="panel-title">
+Unit Converter
+</div>
+
+<p class="subtitle">
+Convert common scientific and everyday units.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Category
+</label>
+
+
+<select
+    id="conversionCategory"
+    onchange="updateUnits()"
+>
+
+<option value="length">
+Length
+</option>
+
+<option value="mass">
+Mass
+</option>
+
+<option value="temperature">
+Temperature
+</option>
+
+<option value="area">
+Area
+</option>
+
+<option value="volume">
+Volume
+</option>
+
+<option value="speed">
+Speed
+</option>
+
+<option value="time">
+Time
+</option>
+
+<option value="data">
+Data
+</option>
+
+<option value="angle">
+Angle
+</option>
+
+</select>
+
+</div>
+
+
+<div class="converter-grid">
+
+
+<div class="form-group">
+
+<label>
+Value
+</label>
+
+<input
+    id="convertValue"
+    type="number"
+    step="any"
+    value="1"
+    oninput="convertUnits()"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+From
+</label>
+
+<select
+    id="fromUnit"
+    onchange="convertUnits()"
+>
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+To
+</label>
+
+<select
+    id="toUnit"
+    onchange="convertUnits()"
+>
+</select>
+
+</div>
+
+</div>
+
+
+<div class="converter-result">
+
+
+<div class="converter-result-label">
+Result
+</div>
+
+
+<div
+    id="conversionResult"
+    class="converter-result-value"
+>
+1
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   CALCULATOR STATE
+===================================================== */
+
+let expression = "";
+
+let angleMode = "DEG";
+
+let history = [];
+
+
+/* =====================================================
+   DISPLAY
+===================================================== */
+
+const expressionDisplay =
+document.getElementById("expression");
+
+const resultDisplay =
+document.getElementById("result");
+
+
+function updateDisplay() {
+
+    expressionDisplay.textContent =
+        expression || "0";
+
+}
+
+
+/* =====================================================
+   APPEND
+===================================================== */
+
+function append(value) {
+
+    expression += value;
+
+    updateDisplay();
+
+}
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+function clearCalculator() {
+
+    expression = "";
+
+    expressionDisplay.textContent = "0";
+
+    resultDisplay.textContent = "0";
+
+}
+
+
+/* =====================================================
+   BACKSPACE
+===================================================== */
+
+function backspace() {
+
+    expression =
+        expression.slice(0, -1);
+
+    updateDisplay();
+
+}
+
+
+/* =====================================================
+   ANGLE MODE
+===================================================== */
+
+function setAngleMode(mode) {
+
+    angleMode = mode;
+
+    document
+        .getElementById("degBtn")
+        .classList
+        .toggle("active", mode === "DEG");
+
+    document
+        .getElementById("radBtn")
+        .classList
+        .toggle("active", mode === "RAD");
+
+}
+
+
+/* =====================================================
+   MATH HELPERS
+===================================================== */
+
+function toRadians(value) {
+
+    return angleMode === "DEG"
+        ? value * Math.PI / 180
+        : value;
+
+}
+
+
+function fromRadians(value) {
+
+    return angleMode === "DEG"
+        ? value * 180 / Math.PI
+        : value;
+
+}
+
+
+function factorial(n) {
+
+    if (!Number.isFinite(n)) {
+        throw new Error("Invalid factorial");
+    }
+
+    if (n < 0 || !Number.isInteger(n)) {
+        throw new Error(
+            "Factorial needs a non-negative integer"
+        );
+    }
+
+    if (n > 170) {
+        throw new Error(
+            "Number is too large"
+        );
+    }
+
+    let result = 1;
+
+    for (let i = 2; i <= n; i++) {
+        result *= i;
+    }
+
+    return result;
+
+}
+
+
+function gcd(a, b) {
+
+    a = Math.abs(Math.trunc(a));
+
+    b = Math.abs(Math.trunc(b));
+
+    while (b !== 0) {
+
+        const temp = b;
+
+        b = a % b;
+
+        a = temp;
+
+    }
+
+    return a;
+
+}
+
+
+function lcm(a, b) {
+
+    if (a === 0 || b === 0) {
+        return 0;
+    }
+
+    return Math.abs(
+        a * b
+    ) / gcd(a, b);
+
+}
+
+
+function nPr(n, r) {
+
+    if (
+        n < 0 ||
+        r < 0 ||
+        r > n ||
+        !Number.isInteger(n) ||
+        !Number.isInteger(r)
+    ) {
+
+        throw new Error(
+            "Use valid integers with n ≥ r"
+        );
+
+    }
+
+    return factorial(n) /
+        factorial(n - r);
+
+}
+
+
+function nCr(n, r) {
+
+    if (
+        n < 0 ||
+        r < 0 ||
+        r > n ||
+        !Number.isInteger(n) ||
+        !Number.isInteger(r)
+    ) {
+
+        throw new Error(
+            "Use valid integers with n ≥ r"
+        );
+
+    }
+
+    return factorial(n) /
+        (
+            factorial(r) *
+            factorial(n - r)
+        );
+
+}
+
+
+/* =====================================================
+   SAFE MATH EVALUATOR
+===================================================== */
+
+function evaluateExpression(input) {
+
+    let exp = input;
+
+    exp = exp.replace(
+        /π/g,
+        "Math.PI"
+    );
+
+    exp = exp.replace(
+        /\bpi\b/g,
+        "Math.PI"
+    );
+
+    exp = exp.replace(
+        /\bphi\b/g,
+        "((1+Math.sqrt(5))/2)"
+    );
+
+    exp = exp.replace(
+        /\be\b/g,
+        "Math.E"
+    );
+
+
+    exp = exp.replace(
+        /sqrt\(/g,
+        "Math.sqrt("
+    );
+
+    exp = exp.replace(
+        /cbrt\(/g,
+        "Math.cbrt("
+    );
+
+    exp = exp.replace(
+        /abs\(/g,
+        "Math.abs("
+    );
+
+    exp = exp.replace(
+        /floor\(/g,
+        "Math.floor("
+    );
+
+    exp = exp.replace(
+        /ceil\(/g,
+        "Math.ceil("
+    );
+
+    exp = exp.replace(
+        /round\(/g,
+        "Math.round("
+    );
+
+    exp = exp.replace(
+        /ln\(/g,
+        "Math.log("
+    );
+
+    exp = exp.replace(
+        /log\(/g,
+        "Math.log10("
+    );
+
+    exp = exp.replace(
+        /exp\(/g,
+        "Math.exp("
+    );
+
+
+    /* Trigonometry */
+
+    exp = exp.replace(
+        /sin\(/g,
+        "trigSin("
+    );
+
+    exp = exp.replace(
+        /cos\(/g,
+        "trigCos("
+    );
+
+    exp = exp.replace(
+        /tan\(/g,
+        "trigTan("
+    );
+
+
+    exp = exp.replace(
+        /asin\(/g,
+        "trigAsin("
+    );
+
+    exp = exp.replace(
+        /acos\(/g,
+        "trigAcos("
+    );
+
+    exp = exp.replace(
+        /atan\(/g,
+        "trigAtan("
+    );
+
+
+    /* Hyperbolic */
+
+    exp = exp.replace(
+        /sinh\(/g,
+        "Math.sinh("
+    );
+
+    exp = exp.replace(
+        /cosh\(/g,
+        "Math.cosh("
+    );
+
+    exp = exp.replace(
+        /tanh\(/g,
+        "Math.tanh("
+    );
+
+
+    /* Random */
+
+    exp = exp.replace(
+        /rand\(/g,
+        "Math.random("
+    );
+
+
+    /* Power */
+
+    exp = exp.replace(
+        /\^/g,
+        "**"
+    );
+
+
+    /* Percent */
+
+    exp = exp.replace(
+        /(\d+(?:\.\d+)?)%/g,
+        "($1/100)"
+    );
+
+
+    /* Factorial */
+
+    exp = exp.replace(
+        /(\d+(?:\.\d+)?)!/g,
+        "factorial($1)"
+    );
+
+
+    /* Validate */
+
+    if (
+        /[^\d+\-*/().,%!^_\sA-Za-z]/.test(
+            input
+        )
+    ) {
+
+        throw new Error(
+            "Invalid characters"
+        );
+
+    }
+
+
+    const fn =
+        Function(
+            "trigSin",
+            "trigCos",
+            "trigTan",
+            "trigAsin",
+            "trigAcos",
+            "trigAtan",
+            "factorial",
+            `"use strict"; return (${exp})`
+        );
+
+
+    return fn(
+        value => Math.sin(
+            toRadians(value)
+        ),
+
+        value => Math.cos(
+            toRadians(value)
+        ),
+
+        value => Math.tan(
+            toRadians(value)
+        ),
+
+        value => fromRadians(
+            Math.asin(value)
+        ),
+
+        value => fromRadians(
+            Math.acos(value)
+        ),
+
+        value => fromRadians(
+            Math.atan(value)
+        ),
+
+        factorial
+    );
+
+}
+
+
+/* =====================================================
+   CALCULATE
+===================================================== */
+
+function calculate() {
+
+    if (!expression.trim()) {
+        return;
+    }
+
+
+    try {
+
+        const value =
+            evaluateExpression(expression);
+
+
+        if (
+            !Number.isFinite(value)
+        ) {
+
+            throw new Error(
+                "Result is not finite"
+            );
+
+        }
+
+
+        const formatted =
+            formatNumber(value);
+
+
+        resultDisplay.textContent =
+            formatted;
+
+
+        addHistory(
+            expression,
+            formatted
+        );
+
+
+        expression =
+            String(value);
+
+
+    } catch (error) {
+
+        resultDisplay.textContent =
+            "Error";
+
+    }
+
+}
+
+
+/* =====================================================
+   FORMAT
+===================================================== */
+
+function formatNumber(value) {
+
+    if (
+        Math.abs(value) >= 1e12 ||
+        (
+            Math.abs(value) > 0 &&
+            Math.abs(value) < 1e-8
+        )
+    ) {
+
+        return value.toExponential(8);
+
+    }
+
+    return Number(
+        value.toFixed(12)
+    ).toString();
+
+}
+
+
+/* =====================================================
+   CURRENT OPERATIONS
+===================================================== */
+
+function squareCurrent() {
+
+    if (!expression) return;
+
+    expression =
+        `(${expression})^2`;
+
+    updateDisplay();
+
+}
+
+
+function cubeCurrent() {
+
+    if (!expression) return;
+
+    expression =
+        `(${expression})^3`;
+
+    updateDisplay();
+
+}
+
+
+function factorialCurrent() {
+
+    if (!expression) return;
+
+    expression =
+        `(${expression})!`;
+
+    updateDisplay();
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function addHistory(
+    expressionValue,
+    resultValue
+) {
+
+    history.unshift({
+
+        expression:
+            expressionValue,
+
+        result:
+            resultValue
+
+    });
+
+
+    if (history.length > 50) {
+
+        history =
+            history.slice(0, 50);
+
+    }
+
+
+    renderHistory();
+
+}
+
+
+function renderHistory() {
+
+    const container =
+        document.getElementById(
+            "history"
+        );
+
+
+    if (!history.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-history">
+                No calculations yet.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        history
+        .map(
+            (item, index) => `
+
+                <div class="history-item">
+
+                    <div class="history-expression">
+                        ${escapeHTML(item.expression)}
+                    </div>
+
+                    <div class="history-result">
+                        = ${escapeHTML(item.result)}
+                    </div>
+
+                    <button
+                        class="history-use"
+                        onclick="useHistory(${index})"
+                    >
+                        Use result
+                    </button>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+function useHistory(index) {
+
+    expression =
+        history[index].result;
+
+    resultDisplay.textContent =
+        history[index].result;
+
+    updateDisplay();
+
+}
+
+
+function clearHistory() {
+
+    history = [];
+
+    renderHistory();
+
+}
+
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+function showTab(
+    tab,
+    button
+) {
+
+    document
+        .querySelectorAll(".calc-tab")
+        .forEach(
+            btn =>
+                btn.classList.remove(
+                    "active"
+                )
+        );
+
+
+    button.classList.add("active");
+
+
+    document
+        .getElementById("scientific")
+        .style.display =
+        tab === "scientific"
+            ? "block"
+            : "none";
+
+
+    document
+        .getElementById("algebra")
+        .classList.toggle(
+            "active",
+            tab === "algebra"
+        );
+
+
+    document
+        .getElementById("converter")
+        .classList.toggle(
+            "active",
+            tab === "converter"
+        );
+
+}
+
+
+/* =====================================================
+   LINEAR EQUATION
+===================================================== */
+
+function solveLinear() {
+
+    const a =
+        Number(
+            document.getElementById(
+                "linearA"
+            ).value
+        );
+
+
+    const b =
+        Number(
+            document.getElementById(
+                "linearB"
+            ).value
+        );
+
+
+    const output =
+        document.getElementById(
+            "linearSolution"
+        );
+
+
+    if (!Number.isFinite(a) ||
+        !Number.isFinite(b)) {
+
+        output.textContent =
+            "Enter valid numbers.";
+
+        return;
+
+    }
+
+
+    if (a === 0) {
+
+        if (b === 0) {
+
+            output.textContent =
+                "Infinite solutions.";
+
+        } else {
+
+            output.textContent =
+                "No solution.";
+
+        }
+
+        return;
+
+    }
+
+
+    const x =
+        -b / a;
+
+
+    output.textContent =
+        `x = ${formatNumber(x)}`;
+
+}
+
+
+/* =====================================================
+   QUADRATIC
+===================================================== */
+
+function solveQuadratic() {
+
+    const a =
+        Number(
+            document.getElementById(
+                "quadA"
+            ).value
+        );
+
+
+    const b =
+        Number(
+            document.getElementById(
+                "quadB"
+            ).value
+        );
+
+
+    const c =
+        Number(
+            document.getElementById(
+                "quadC"
+            ).value
+        );
+
+
+    const output =
+        document.getElementById(
+            "quadraticSolution"
+        );
+
+
+    if (
+        !Number.isFinite(a) ||
+        !Number.isFinite(b) ||
+        !Number.isFinite(c)
+    ) {
+
+        output.textContent =
+            "Enter valid numbers.";
+
+        return;
+
+    }
+
+
+    if (a === 0) {
+
+        if (b === 0) {
+
+            output.textContent =
+                c === 0
+                    ? "Infinite solutions."
+                    : "No solution.";
+
+        } else {
+
+            output.textContent =
+                `Linear solution: x = ${formatNumber(-c / b)}`;
+
+        }
+
+        return;
+
+    }
+
+
+    const discriminant =
+        b * b - 4 * a * c;
+
+
+    if (discriminant > 0) {
+
+        const x1 =
+            (-b + Math.sqrt(discriminant))
+            / (2 * a);
+
+
+        const x2 =
+            (-b - Math.sqrt(discriminant))
+            / (2 * a);
+
+
+        output.innerHTML =
+            `x₁ = ${formatNumber(x1)}
+            <br>
+            x₂ = ${formatNumber(x2)}`;
+
+    }
+
+    else if (discriminant === 0) {
+
+        const x =
+            -b / (2 * a);
+
+
+        output.textContent =
+            `x = ${formatNumber(x)}`;
+
+    }
+
+    else {
+
+        const real =
+            -b / (2 * a);
+
+
+        const imaginary =
+            Math.sqrt(-discriminant)
+            / Math.abs(2 * a);
+
+
+        output.innerHTML =
+            `x₁ = ${formatNumber(real)}
+            + ${formatNumber(imaginary)}i
+            <br>
+            x₂ = ${formatNumber(real)}
+            - ${formatNumber(imaginary)}i`;
+
+    }
+
+}
+
+
+/* =====================================================
+   COMBINATIONS
+===================================================== */
+
+function calculateCombinations() {
+
+    const n =
+        Number(
+            document.getElementById(
+                "combN"
+            ).value
+        );
+
+
+    const r =
+        Number(
+            document.getElementById(
+                "combR"
+            ).value
+        );
+
+
+    const output =
+        document.getElementById(
+            "combSolution"
+        );
+
+
+    try {
+
+        output.innerHTML = `
+
+            nPr = ${formatNumber(
+                nPr(n, r)
+            )}
+
+            <br>
+
+            nCr = ${formatNumber(
+                nCr(n, r)
+            )}
+
+        `;
+
+    } catch (error) {
+
+        output.textContent =
+            error.message;
+
+    }
+
+}
+
+
+/* =====================================================
+   GCD / LCM
+===================================================== */
+
+function calculateGcdLcm() {
+
+    const a =
+        Number(
+            document.getElementById(
+                "numA"
+            ).value
+        );
+
+
+    const b =
+        Number(
+            document.getElementById(
+                "numB"
+            ).value
+        );
+
+
+    const output =
+        document.getElementById(
+            "numberSolution"
+        );
+
+
+    if (
+        !Number.isInteger(a) ||
+        !Number.isInteger(b)
+    ) {
+
+        output.textContent =
+            "Enter whole numbers.";
+
+        return;
+
+    }
+
+
+    output.innerHTML = `
+
+        GCD = ${gcd(a, b)}
+
+        <br>
+
+        LCM = ${lcm(a, b)}
+
+    `;
+
+}
+
+
+/* =====================================================
+   CONVERTER DATA
+===================================================== */
+
+const units = {
+
+    length: {
+
+        meter: {
+            label: "Meter",
+            factor: 1
+        },
+
+        kilometer: {
+            label: "Kilometer",
+            factor: 1000
+        },
+
+        centimeter: {
+            label: "Centimeter",
+            factor: 0.01
+        },
+
+        millimeter: {
+            label: "Millimeter",
+            factor: 0.001
+        },
+
+        mile: {
+            label: "Mile",
+            factor: 1609.344
+        },
+
+        yard: {
+            label: "Yard",
+            factor: 0.9144
+        },
+
+        foot: {
+            label: "Foot",
+            factor: 0.3048
+        },
+
+        inch: {
+            label: "Inch",
+            factor: 0.0254
+        }
+
+    },
+
+
+    mass: {
+
+        kilogram: {
+            label: "Kilogram",
+            factor: 1
+        },
+
+        gram: {
+            label: "Gram",
+            factor: 0.001
+        },
+
+        milligram: {
+            label: "Milligram",
+            factor: 0.000001
+        },
+
+        pound: {
+            label: "Pound",
+            factor: 0.45359237
+        },
+
+        ounce: {
+            label: "Ounce",
+            factor: 0.028349523125
+        }
+
+    },
+
+
+    area: {
+
+        squareMeter: {
+            label: "Square Meter",
+            factor: 1
+        },
+
+        squareKilometer: {
+            label: "Square Kilometer",
+            factor: 1000000
+        },
+
+        squareFoot: {
+            label: "Square Foot",
+            factor: 0.09290304
+        },
+
+        squareYard: {
+            label: "Square Yard",
+            factor: 0.83612736
+        },
+
+        acre: {
+            label: "Acre",
+            factor: 4046.8564224
+        },
+
+        hectare: {
+            label: "Hectare",
+            factor: 10000
+        }
+
+    },
+
+
+    volume: {
+
+        liter: {
+            label: "Liter",
+            factor: 1
+        },
+
+        milliliter: {
+            label: "Milliliter",
+            factor: 0.001
+        },
+
+        cubicMeter: {
+            label: "Cubic Meter",
+            factor: 1000
+        },
+
+        gallon: {
+            label: "US Gallon",
+            factor: 3.785411784
+        },
+
+        quart: {
+            label: "US Quart",
+            factor: 0.946352946
+        },
+
+        cup: {
+            label: "US Cup",
+            factor: 0.2365882365
+        }
+
+    },
+
+
+    speed: {
+
+        metersPerSecond: {
+            label: "m/s",
+            factor: 1
+        },
+
+        kilometersPerHour: {
+            label: "km/h",
+            factor: 1 / 3.6
+        },
+
+        milesPerHour: {
+            label: "mph",
+            factor: 0.44704
+        },
+
+        knots: {
+            label: "Knots",
+            factor: 0.514444
+        }
+
+    },
+
+
+    time: {
+
+        second: {
+            label: "Second",
+            factor: 1
+        },
+
+        minute: {
+            label: "Minute",
+            factor: 60
+        },
+
+        hour: {
+            label: "Hour",
+            factor: 3600
+        },
+
+        day: {
+            label: "Day",
+            factor: 86400
+        },
+
+        week: {
+            label: "Week",
+            factor: 604800
+        }
+
+    },
+
+
+    data: {
+
+        byte: {
+            label: "Byte",
+            factor: 1
+        },
+
+        kilobyte: {
+            label: "Kilobyte",
+            factor: 1024
+        },
+
+        megabyte: {
+            label: "Megabyte",
+            factor: 1024 ** 2
+        },
+
+        gigabyte: {
+            label: "Gigabyte",
+            factor: 1024 ** 3
+        },
+
+        terabyte: {
+            label: "Terabyte",
+            factor: 1024 ** 4
+        }
+
+    },
+
+
+    angle: {
+
+        degree: {
+            label: "Degree",
+            factor: 1
+        },
+
+        radian: {
+            label: "Radian",
+            factor: 180 / Math.PI
+        },
+
+        gradian: {
+            label: "Gradian",
+            factor: 0.9
+        }
+
+    }
+
+};
+
+
+/* =====================================================
+   UPDATE UNITS
+===================================================== */
+
+function updateUnits() {
+
+    const category =
+        document.getElementById(
+            "conversionCategory"
+        ).value;
+
+
+    const from =
+        document.getElementById(
+            "fromUnit"
+        );
+
+
+    const to =
+        document.getElementById(
+            "toUnit"
+        );
+
+
+    from.innerHTML = "";
+
+    to.innerHTML = "";
+
+
+    Object.entries(
+        units[category]
+    ).forEach(
+        ([key, unit]) => {
+
+            from.innerHTML += `
+
+                <option value="${key}">
+                    ${unit.label}
+                </option>
+
+            `;
+
+
+            to.innerHTML += `
+
+                <option value="${key}">
+                    ${unit.label}
+                </option>
+
+            `;
+
+        }
+    );
+
+
+    convertUnits();
+
+}
+
+
+/* =====================================================
+   TEMPERATURE
+===================================================== */
+
+function temperatureToCelsius(
+    value,
+    unit
+) {
+
+    if (unit === "celsius") {
+        return value;
+    }
+
+    if (unit === "fahrenheit") {
+
+        return (
+            value - 32
+        ) * 5 / 9;
+
+    }
+
+    if (unit === "kelvin") {
+
+        return value - 273.15;
+
+    }
+
+}
+
+
+function celsiusToTemperature(
+    value,
+    unit
+) {
+
+    if (unit === "celsius") {
+        return value;
+    }
+
+    if (unit === "fahrenheit") {
+
+        return value * 9 / 5 + 32;
+
+    }
+
+    if (unit === "kelvin") {
+
+        return value + 273.15;
+
+    }
+
+}
+
+
+/* =====================================================
+   CONVERT
+===================================================== */
+
+function convertUnits() {
+
+    const category =
+        document.getElementById(
+            "conversionCategory"
+        ).value;
+
+
+    const value =
+        Number(
+            document.getElementById(
+                "convertValue"
+            ).value
+        );
+
+
+    const from =
+        document.getElementById(
+            "fromUnit"
+        ).value;
+
+
+    const to =
+        document.getElementById(
+            "toUnit"
+        ).value;
+
+
+    const output =
+        document.getElementById(
+            "conversionResult"
+        );
+
+
+    if (!Number.isFinite(value)) {
+
+        output.textContent =
+            "Enter a valid number.";
+
+        return;
+
+    }
+
+
+    let result;
+
+
+    /* Temperature */
+
+    if (category === "temperature") {
+
+        const celsius =
+            temperatureToCelsius(
+                value,
+                from
+            );
+
+
+        result =
+            celsiusToTemperature(
+                celsius,
+                to
+            );
+
+    }
+
+
+    /* Other categories */
+
+    else {
+
+        const fromFactor =
+            units[category][from].factor;
+
+
+        const toFactor =
+            units[category][to].factor;
+
+
+        result =
+            value *
+            fromFactor /
+            toFactor;
+
+    }
+
+
+    output.textContent =
+        formatNumber(result);
+
+}
+
+
+/* =====================================================
+   TEMPERATURE UNITS OVERRIDE
+===================================================== */
+
+const originalUpdateUnits =
+    updateUnits;
+
+
+updateUnits = function() {
+
+    const category =
+        document.getElementById(
+            "conversionCategory"
+        ).value;
+
+
+    if (category !== "temperature") {
+
+        originalUpdateUnits();
+
+        return;
+
+    }
+
+
+    const from =
+        document.getElementById(
+            "fromUnit"
+        );
+
+
+    const to =
+        document.getElementById(
+            "toUnit"
+        );
+
+
+    const temperatureUnits = {
+
+        celsius: "Celsius",
+
+        fahrenheit: "Fahrenheit",
+
+        kelvin: "Kelvin"
+
+    };
+
+
+    from.innerHTML = "";
+
+    to.innerHTML = "";
+
+
+    Object.entries(
+        temperatureUnits
+    ).forEach(
+        ([key, label]) => {
+
+            from.innerHTML += `
+                <option value="${key}">
+                    ${label}
+                </option>
+            `;
+
+
+            to.innerHTML += `
+                <option value="${key}">
+                    ${label}
+                </option>
+            `;
+
+        }
+    );
+
+
+    convertUnits();
+
+};
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        const allowed =
+            "0123456789+-*/().%^";
+
+
+        if (
+            allowed.includes(
+                event.key
+            )
+        ) {
+
+            append(event.key);
+
+        }
+
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            calculate();
+
+        }
+
+
+        if (
+            event.key === "Backspace"
+        ) {
+
+            backspace();
+
+        }
+
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            clearCalculator();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START CONVERTER
+===================================================== */
+
+updateUnits();
+
+</script>
+
+
+</body>
+
+</html>

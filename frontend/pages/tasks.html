@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Task Manager | 7 WINGS</title>
+
+<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>7</span> WINGS
+        </div>
+
+        <div class="label">PLATFORM</div>
+
+        <nav class="menu">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="tasks.html" class="active">
+                Task Manager
+            </a>
+
+            <a href="resume.html">
+                Resume Builder
+            </a>
+
+            <a href="interview.html">
+                Interview Prep
+            </a>
+
+            <a href="knowledge.html">
+                AI Knowledge
+            </a>
+
+            <a href="calculator.html">
+                Calculator
+            </a>
+
+            <a href="portfolio.html">
+                Portfolio
+            </a>
+
+            <a href="information.html">
+                Information
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div class="eyebrow">
+                TASK MANAGER
+            </div>
+
+            <h1>
+                Stay organized.
+            </h1>
+
+            <p class="subtitle">
+                Plan tasks and get reminders before deadlines.
+            </p>
+
+        </div>
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Total Tasks
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="total"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Completed
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="completed"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Pending
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="pending"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= GRID ================= -->
+
+        <div class="grid-2">
+
+
+            <!-- ================= ADD TASK ================= -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+                        Add New Task
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Task Title
+                    </label>
+
+                    <input
+                        id="title"
+                        type="text"
+                        placeholder="Example: Complete project"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Due Date & Time
+                    </label>
+
+                    <input
+                        id="dueDate"
+                        type="datetime-local"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Priority
+                    </label>
+
+                    <select id="priority">
+
+                        <option value="high">
+                            High
+                        </option>
+
+                        <option
+                            value="medium"
+                            selected
+                        >
+                            Medium
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Reminder
+                    </label>
+
+                    <select id="reminder">
+
+                        <option value="none">
+                            No reminder
+                        </option>
+
+                        <option value="1day">
+                            1 day before
+                        </option>
+
+                        <option value="6hours">
+                            6 hours before
+                        </option>
+
+                        <option value="1hour">
+                            1 hour before
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="btn primary"
+                    onclick="addTask()"
+                >
+                    + Add Task
+                </button>
+
+            </div>
+
+
+            <!-- ================= TASK LIST ================= -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+                        Your Tasks
+                    </div>
+
+                </div>
+
+
+                <div id="taskList">
+
+                    <div
+                        style="
+                            color:#68718a;
+                            font-size:13px;
+                            padding:20px 0;
+                        "
+                    >
+                        Loading tasks...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   7 WINGS TASK MANAGER
+   BACKEND CONNECTION
+===================================================== */
+
+
+/* =====================================================
+   API URL
+===================================================== */
+
+const API_URL =
+    "http://localhost:5000/api/tasks";
+
+
+/* =====================================================
+   TASK STORAGE
+===================================================== */
+
+let tasks = [];
+
+
+/* =====================================================
+   LOAD TASKS
+===================================================== */
+
+async function loadTasks() {
+
+    try {
+
+        const response =
+            await fetch(API_URL);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load tasks"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        tasks =
+            data.tasks || [];
+
+
+        render();
+
+
+        /*
+         * Schedule reminders for
+         * tasks that already exist.
+         */
+
+        tasks.forEach(task => {
+
+            if (!task.completed) {
+
+                scheduleTaskReminder(task);
+
+            }
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Load tasks error:",
+            error
+        );
+
+
+        document.getElementById(
+            "taskList"
+        ).innerHTML = `
+
+            <div
+                style="
+                    color:#ff6b6b;
+                    font-size:13px;
+                    padding:20px 0;
+                "
+            >
+
+                Unable to connect to
+                7 WINGS backend.
+
+                <br><br>
+
+                Make sure the backend is running.
+
+                <br><br>
+
+                <strong>
+                    npm start
+                </strong>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   ADD TASK
+===================================================== */
+
+async function addTask() {
+
+    const title =
+        document
+            .getElementById("title")
+            .value
+            .trim();
+
+
+    const dueDate =
+        document
+            .getElementById("dueDate")
+            .value;
+
+
+    const priority =
+        document
+            .getElementById("priority")
+            .value;
+
+
+    const reminder =
+        document
+            .getElementById("reminder")
+            .value;
+
+
+    /* Validate */
+
+    if (!title || !dueDate) {
+
+        alert(
+            "Please enter task and due date."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    title: title,
+
+                    dueDate: dueDate,
+
+                    priority: priority,
+
+                    reminder: reminder,
+
+                    completed: false
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Unable to create task"
+            );
+
+        }
+
+
+        /* Clear form */
+
+        document.getElementById(
+            "title"
+        ).value = "";
+
+
+        document.getElementById(
+            "dueDate"
+        ).value = "";
+
+
+        document.getElementById(
+            "priority"
+        ).value = "medium";
+
+
+        document.getElementById(
+            "reminder"
+        ).value = "none";
+
+
+        /* Reload tasks */
+
+        await loadTasks();
+
+
+        /* Schedule reminder */
+
+        scheduleTaskReminder(
+            data.task
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Add task error:",
+            error
+        );
+
+
+        alert(
+            "Unable to add task. " +
+            "Make sure the backend is running."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   COMPLETE TASK
+===================================================== */
+
+async function completeTask(id) {
+
+    const task =
+        tasks.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!task) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                `${API_URL}/${encodeURIComponent(id)}`,
+
+                {
+
+                    method: "PUT",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        completed:
+                            !task.completed
+
+                    })
+
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Unable to update task"
+            );
+
+        }
+
+
+        await loadTasks();
+
+
+    } catch (error) {
+
+        console.error(
+            "Complete task error:",
+            error
+        );
+
+
+        alert(
+            "Unable to update task."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DELETE TASK
+===================================================== */
+
+async function deleteTask(id) {
+
+    const confirmDelete =
+        confirm(
+            "Delete this task?"
+        );
+
+
+    if (!confirmDelete) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                `${API_URL}/${encodeURIComponent(id)}`,
+
+                {
+
+                    method: "DELETE"
+
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Unable to delete task"
+            );
+
+        }
+
+
+        await loadTasks();
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete task error:",
+            error
+        );
+
+
+        alert(
+            "Unable to delete task."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER TASKS
+===================================================== */
+
+function render() {
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    /* No tasks */
+
+    if (tasks.length === 0) {
+
+        list.innerHTML = `
+
+            <div
+                style="
+                    color:#68718a;
+                    font-size:13px;
+                    padding:20px 0;
+                "
+            >
+
+                No tasks yet.
+                Add your first task.
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* Display tasks */
+
+    tasks.forEach(task => {
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.style.padding =
+            "16px 0";
+
+
+        item.style.borderBottom =
+            "1px solid #202638";
+
+
+        item.innerHTML = `
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:15px;
+                "
+            >
+
+                <div>
+
+                    <div
+                        style="
+                            font-size:14px;
+
+                            text-decoration:
+                            ${
+                                task.completed
+                                    ? "line-through"
+                                    : "none"
+                            };
+
+                            color:
+                            ${
+                                task.completed
+                                    ? "#68718a"
+                                    : "#f5f7ff"
+                            };
+                        "
+                    >
+
+                        ${escapeHTML(
+                            task.title
+                        )}
+
+                    </div>
+
+
+                    <div
+                        style="
+                            font-size:11px;
+                            color:#68718a;
+                            margin-top:7px;
+                        "
+                    >
+
+                        Due:
+                        ${formatDate(
+                            task.dueDate
+                        )}
+
+                    </div>
+
+
+                    <div
+                        style="
+                            font-size:11px;
+                            color:#777fff;
+                            margin-top:5px;
+                        "
+                    >
+
+                        Reminder:
+                        ${reminderText(
+                            task.reminder
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    style="
+                        display:flex;
+                        gap:7px;
+                        align-items:flex-start;
+                        flex-wrap:wrap;
+                    "
+                >
+
+                    <span
+                        class="badge ${
+                            task.priority ||
+                            "medium"
+                        }"
+                    >
+
+                        ${escapeHTML(
+                            task.priority ||
+                            "medium"
+                        )}
+
+                    </span>
+
+
+                    <button
+                        class="btn success"
+                        onclick='completeTask(
+                            ${JSON.stringify(task.id)}
+                        )'
+                    >
+
+                        ${
+                            task.completed
+                                ? "Undo"
+                                : "Done"
+                        }
+
+                    </button>
+
+
+                    <button
+                        class="btn danger"
+                        onclick='deleteTask(
+                            ${JSON.stringify(task.id)}
+                        )'
+                    >
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(item);
+
+    });
+
+
+    updateStats();
+
+}
+
+
+/* =====================================================
+   UPDATE STATISTICS
+===================================================== */
+
+function updateStats() {
+
+    const completed =
+        tasks.filter(
+            task =>
+                task.completed
+        ).length;
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        tasks.length;
+
+
+    document.getElementById(
+        "completed"
+    ).textContent =
+        completed;
+
+
+    document.getElementById(
+        "pending"
+    ).textContent =
+        tasks.length -
+        completed;
+
+}
+
+
+/* =====================================================
+   REMINDER TEXT
+===================================================== */
+
+function reminderText(value) {
+
+    if (value === "1day") {
+
+        return "1 day before";
+
+    }
+
+
+    if (value === "6hours") {
+
+        return "6 hours before";
+
+    }
+
+
+    if (value === "1hour") {
+
+        return "1 hour before";
+
+    }
+
+
+    return "None";
+
+}
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(value) {
+
+    if (!value) {
+
+        return "Not set";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return value;
+
+    }
+
+
+    return date.toLocaleString();
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   TASK REMINDER
+===================================================== */
+
+function scheduleTaskReminder(task) {
+
+    if (!task) {
+
+        return;
+
+    }
+
+
+    if (!task.dueDate) {
+
+        return;
+
+    }
+
+
+    if (
+        !task.reminder ||
+        task.reminder === "none"
+    ) {
+
+        return;
+
+    }
+
+
+    let millisecondsBefore = 0;
+
+
+    /* 1 day */
+
+    if (
+        task.reminder ===
+        "1day"
+    ) {
+
+        millisecondsBefore =
+            24 *
+            60 *
+            60 *
+            1000;
+
+    }
+
+
+    /* 6 hours */
+
+    else if (
+        task.reminder ===
+        "6hours"
+    ) {
+
+        millisecondsBefore =
+            6 *
+            60 *
+            60 *
+            1000;
+
+    }
+
+
+    /* 1 hour */
+
+    else if (
+        task.reminder ===
+        "1hour"
+    ) {
+
+        millisecondsBefore =
+            60 *
+            60 *
+            1000;
+
+    }
+
+
+    const dueTime =
+        new Date(
+            task.dueDate
+        ).getTime();
+
+
+    const reminderTime =
+        dueTime -
+        millisecondsBefore;
+
+
+    const delay =
+        reminderTime -
+        Date.now();
+
+
+    /* Already passed */
+
+    if (delay <= 0) {
+
+        return;
+
+    }
+
+
+    setTimeout(() => {
+
+        showNotification(
+
+            `Task Reminder: ${
+                task.title
+            }`,
+
+            `Your task is due ${
+                reminderText(
+                    task.reminder
+                )
+            }.`
+
+        );
+
+    }, delay);
+
+}
+
+
+/* =====================================================
+   BROWSER NOTIFICATION
+===================================================== */
+
+function showNotification(
+    title,
+    message
+) {
+
+    /* Browser does not support
+       notifications */
+
+    if (
+        !(
+            "Notification"
+            in window
+        )
+    ) {
+
+        alert(
+            `${title}\n\n${message}`
+        );
+
+        return;
+
+    }
+
+
+    /* Already allowed */
+
+    if (
+        Notification.permission ===
+        "granted"
+    ) {
+
+        new Notification(
+            title,
+            {
+                body: message
+            }
+        );
+
+        return;
+
+    }
+
+
+    /* Ask permission */
+
+    if (
+        Notification.permission !==
+        "denied"
+    ) {
+
+        Notification
+            .requestPermission()
+            .then(permission => {
+
+                if (
+                    permission ===
+                    "granted"
+                ) {
+
+                    new Notification(
+
+                        title,
+
+                        {
+                            body:
+                                message
+                        }
+
+                    );
+
+                }
+
+            });
+
+    }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadTasks();
+
+</script>
+
+</body>
+</html>

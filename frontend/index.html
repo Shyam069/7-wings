@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>7 WINGS | Student Intelligence Platform</title>
+
+    <!-- IMPORTANT: index.html is inside frontend -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* ================= LANDING PAGE ================= */
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .landing {
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .landing-nav {
+            height: 75px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(8,11,20,0.88);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .landing-logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .landing-logo span {
+            color: #6259ff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #929ab0;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-button {
+            padding: 10px 16px;
+            border-radius: 9px;
+            background: linear-gradient(
+                135deg,
+                #6259ff,
+                #825cff
+            );
+            color: white !important;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            max-width: 1200px;
+            margin: auto;
+            padding: 100px 30px 80px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #292f48;
+            background: #101522;
+            border-radius: 30px;
+            color: #aab2c7;
+            font-size: 11px;
+            margin-bottom: 22px;
+        }
+
+        .hero-badge span {
+            width: 7px;
+            height: 7px;
+            background: #6de0b4;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #6de0b4;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 6vw, 72px);
+            line-height: 1.02;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(
+                135deg,
+                #8179ff,
+                #b185ff
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 620px;
+            color: #858da3;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-primary {
+            padding: 14px 21px;
+            border-radius: 10px;
+            background: linear-gradient(
+                135deg,
+                #6259ff,
+                #825cff
+            );
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 15px 35px rgba(98,89,255,0.18);
+        }
+
+        .hero-secondary {
+            padding: 14px 21px;
+            border-radius: 10px;
+            border: 1px solid #293147;
+            color: #c4cada;
+            font-size: 13px;
+        }
+
+        /* ================= DASHBOARD PREVIEW ================= */
+
+        .hero-preview {
+            position: relative;
+        }
+
+        .preview-glow {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #6259ff;
+            opacity: 0.12;
+            filter: blur(100px);
+            right: 0;
+            top: 0;
+        }
+
+        .preview-card {
+            position: relative;
+            background: #101522;
+            border: 1px solid #252d42;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+            animation: floatingCard 5s ease-in-out infinite;
+        }
+
+        @keyframes floatingCard {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+        }
+
+        .preview-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .preview-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .preview-live {
+            color: #6de0b4;
+            font-size: 10px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .preview-stat {
+            background: #0b0f19;
+            border: 1px solid #202638;
+            padding: 17px;
+            border-radius: 12px;
+        }
+
+        .preview-stat small {
+            color: #68718a;
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .preview-stat strong {
+            font-size: 24px;
+        }
+
+        .preview-task {
+            margin-top: 12px;
+            padding: 15px;
+            background: #0b0f19;
+            border: 1px solid #202638;
+            border-radius: 12px;
+        }
+
+        .preview-task-title {
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .preview-line {
+            height: 7px;
+            background: #202638;
+            border-radius: 20px;
+            margin-top: 7px;
+        }
+
+        .preview-line span {
+            display: block;
+            width: 72%;
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(
+                90deg,
+                #6259ff,
+                #825cff
+            );
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features-section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 30px 100px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: #858da3;
+            font-size: 14px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 16px;
+        }
+
+        .feature-card {
+            position: relative;
+            min-height: 220px;
+            padding: 25px;
+            border: 1px solid #202638;
+            border-radius: 16px;
+            background: #101522;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #3c4260;
+            background: #121827;
+        }
+
+        .feature-number {
+            color: #6259ff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .feature-icon {
+            font-size: 27px;
+            margin: 25px 0 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 9px;
+        }
+
+        .feature-card p {
+            color: #858da3;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .feature-arrow {
+            position: absolute;
+            right: 22px;
+            bottom: 20px;
+            color: #68718a;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about-section {
+            max-width: 900px;
+            margin: auto;
+            padding: 30px 30px 100px;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 34px;
+            margin-bottom: 18px;
+        }
+
+        .about-section p {
+            color: #858da3;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            padding: 55px 30px;
+            text-align: center;
+            border: 1px solid #302d59;
+            border-radius: 22px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(98,89,255,0.12),
+                    rgba(130,92,255,0.04)
+                );
+        }
+
+        .cta h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #858da3;
+            margin-bottom: 25px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            border-top: 1px solid #202638;
+            padding: 25px 7%;
+            display: flex;
+            justify-content: space-between;
+            color: #68718a;
+            font-size: 11px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:900px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 70px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .landing-nav {
+                padding: 0 20px;
+            }
+
+            .nav-links a:not(.nav-button) {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+                letter-spacing: -2px;
+            }
+
+            .features-section {
+                padding: 50px 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2 {
+                font-size: 30px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="landing">
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="landing-nav">
+
+        <a href="index.html" class="landing-logo">
+            <span>7</span> WINGS
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a
+                href="pages/dashboard.html"
+                class="nav-button"
+            >
+                Open Platform →
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero" id="home">
+
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                <span></span>
+                STUDENT INTELLIGENCE PLATFORM
+            </div>
+
+
+            <h1>
+
+                One platform.<br>
+
+                <span class="gradient">
+                    Endless possibilities.
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                7 WINGS brings your tasks, resume, interview
+                preparation, AI knowledge, calculator, portfolio
+                and information into one intelligent student platform.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="pages/dashboard.html"
+                    class="hero-primary"
+                >
+                    Open 7 WINGS →
+                </a>
+
+
+                <a
+                    href="#features"
+                    class="hero-secondary"
+                >
+                    Explore Features
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PREVIEW -->
+
+        <div class="hero-preview">
+
+            <div class="preview-glow"></div>
+
+
+            <div class="preview-card">
+
+                <div class="preview-top">
+
+                    <div class="preview-title">
+                        7 WINGS Dashboard
+                    </div>
+
+                    <div class="preview-live">
+                        ● LIVE
+                    </div>
+
+                </div>
+
+
+                <div class="preview-grid">
+
+
+                    <div class="preview-stat">
+
+                        <small>
+                            Tasks
+                        </small>
+
+                        <strong>
+                            08
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-stat">
+
+                        <small>
+                            Resume
+                        </small>
+
+                        <strong>
+                            85%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-stat">
+
+                        <small>
+                            Interview
+                        </small>
+
+                        <strong>
+                            12
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-stat">
+
+                        <small>
+                            Knowledge
+                        </small>
+
+                        <strong>
+                            AI
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-task">
+
+                    <div class="preview-task-title">
+                        Today's Progress
+                    </div>
+
+                    <div class="preview-line">
+                        <span></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section
+        class="features-section"
+        id="features"
+    >
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                SEVEN WINGS
+            </div>
+
+            <h2>
+                Everything a student needs.
+            </h2>
+
+            <p>
+                Seven focused modules designed to help
+                students learn, prepare, build and grow.
+            </p>
+
+        </div>
+
+
+        <div class="features-grid">
+
+
+            <a
+                href="pages/tasks.html"
+                class="feature-card"
+            >
+
+                <div class="feature-number">
+                    01
+                </div>
+
+                <div class="feature-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Task Manager
+                </h3>
+
+                <p>
+                    Organize assignments, projects,
+                    deadlines and daily tasks in one place.
+                </p>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+
+            <a
+                href="pages/resume.html"
+                class="feature-card"
+            >
+
+                <div class="feature-number">
+                    02
+                </div>
+
+                <div class="feature-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Resume Builder
+                </h3>
+
+                <p>
+                    Build a clean professional resume
+                    and prepare yourself for opportunities.
+                </p>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+
+            <a
+                href="pages/interview.html"
+                class="feature-card"
+            >
+
+                <div class="feature-number">
+                    03
+                </div>
+
+                <div class="feature-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Interview Prep
+                </h3>
+
+                <p>
+                    Practice technical, HR and
+                    commonly asked interview questions.
+                </p>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+
+            <a
+                href="pages/knowledge.html"
+                class="feature-card"
+            >
+
+                <div class="feature-number">
+                    04
+                </div>
+
+                <div class="feature-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    AI Knowledge
+                </h3>
+
+                <p>
+                    Explore concepts and get intelligent
+                    explanations through your knowledge hub.
+                </p>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+
+            <a
+                href="pages/calculator.html"
+                class="feature-card"
+            >
+
+                <div class="feature-number">
+                    05
+                </div>
+
+                <div class="feature-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Scientific Calculator
+                </h3>
+
+                <p>
+                    Perform quick mathematical and
+                    scientific calculations.
+                </p>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+
+            <a
+                href="pages/portfolio.html"
+                class="feature-card"
+            >
+
+                <div class="feature-number">
+                    06
+                </div>
+
+                <div class="feature-icon">
+                    💼
+                </div>
+
+                <h3>
+                    Portfolio
+                </h3>
+
+                <p>
+                    Build a professional portfolio
+                    to showcase your projects and skills.
+                </p>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+
+            <a
+                href="pages/information.html"
+                class="feature-card"
+            >
+
+                <div class="feature-number">
+                    07
+                </div>
+
+                <div class="feature-icon">
+                    📰
+                </div>
+
+                <h3>
+                    Information Hub
+                </h3>
+
+                <p>
+                    Access useful educational,
+                    technology and career information.
+                </p>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section
+        class="about-section"
+        id="about"
+    >
+
+        <div class="eyebrow">
+            ABOUT 7 WINGS
+        </div>
+
+        <h2>
+            Built around the student.
+        </h2>
+
+        <p>
+
+            7 WINGS combines everyday student tools
+            into one connected platform. From managing
+            tasks and building a resume to preparing
+            for interviews and creating a portfolio,
+            everything is designed to work together.
+
+        </p>
+
+    </section>
+
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <h2>
+            Your next step starts here.
+        </h2>
+
+        <p>
+            Open the platform and explore all seven applications.
+        </p>
+
+        <a
+            href="pages/dashboard.html"
+            class="hero-primary"
+        >
+            Launch 7 WINGS →
+        </a>
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div>
+            © 2026 7 WINGS
+        </div>
+
+        <div>
+            Student Intelligence Platform
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+<script src="js/main.js"></script>
+
+</body>
+
+</html>

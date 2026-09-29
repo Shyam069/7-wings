@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Resume Builder | 7 WINGS</title>
+
+<link rel="stylesheet"
+href="../css/style.css">
+
+<style>
+
+/* =====================================================
+   RESUME BUILDER
+===================================================== */
+
+.resume-builder {
+
+display:grid;
+
+grid-template-columns:380px 1fr;
+
+gap:22px;
+
+}
+
+
+/* =====================================================
+   FORM PANEL
+===================================================== */
+
+.form-panel {
+
+max-height:calc(100vh - 80px);
+
+overflow-y:auto;
+
+}
+
+
+/* =====================================================
+   RESUME PAPER
+===================================================== */
+
+.resume-paper {
+
+background:white;
+
+color:#222;
+
+min-height:900px;
+
+padding:45px;
+
+border-radius:5px;
+
+font-family:Arial,sans-serif;
+
+}
+
+
+/* =====================================================
+   RESUME NAME
+===================================================== */
+
+.resume-name {
+
+font-size:32px;
+
+font-weight:800;
+
+}
+
+
+/* =====================================================
+   RESUME ROLE
+===================================================== */
+
+.resume-role {
+
+color:#6259ff;
+
+margin:5px 0 15px;
+
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.resume-contact {
+
+font-size:12px;
+
+color:#666;
+
+margin-bottom:25px;
+
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.resume-section {
+
+margin-top:22px;
+
+}
+
+
+.resume-section h3 {
+
+font-size:13px;
+
+letter-spacing:1px;
+
+border-bottom:2px solid #ddd;
+
+padding-bottom:6px;
+
+margin-bottom:10px;
+
+}
+
+
+.resume-section p {
+
+font-size:13px;
+
+line-height:1.6;
+
+white-space:pre-line;
+
+}
+
+
+/* =====================================================
+   SKILLS
+===================================================== */
+
+.skills {
+
+display:flex;
+
+gap:6px;
+
+flex-wrap:wrap;
+
+}
+
+
+.skill {
+
+background:#eee;
+
+padding:5px 8px;
+
+font-size:11px;
+
+border-radius:5px;
+
+}
+
+
+/* =====================================================
+   BUTTON GROUPS
+===================================================== */
+
+.template-buttons,
+.theme-buttons,
+.font-buttons {
+
+display:flex;
+
+gap:7px;
+
+flex-wrap:wrap;
+
+margin-bottom:15px;
+
+}
+
+
+.small-btn {
+
+padding:7px 10px;
+
+background:#151b2b;
+
+border:1px solid #293147;
+
+color:white;
+
+border-radius:7px;
+
+font-size:11px;
+
+cursor:pointer;
+
+}
+
+
+.small-btn.active {
+
+background:#6259ff;
+
+}
+
+
+/* =====================================================
+   TEMPLATES
+===================================================== */
+
+.template-modern .resume-name {
+
+color:#6259ff;
+
+}
+
+
+.template-classic .resume-name {
+
+text-align:center;
+
+}
+
+
+.template-classic .resume-role,
+.template-classic .resume-contact {
+
+text-align:center;
+
+}
+
+
+.template-minimal .resume-name {
+
+font-weight:500;
+
+letter-spacing:2px;
+
+}
+
+
+/* =====================================================
+   THEMES
+===================================================== */
+
+.theme-blue .resume-role {
+
+color:#2563eb;
+
+}
+
+
+.theme-green .resume-role {
+
+color:#159570;
+
+}
+
+
+.theme-red .resume-role {
+
+color:#dc3545;
+
+}
+
+
+.theme-purple .resume-role {
+
+color:#7c3aed;
+
+}
+
+
+/* =====================================================
+   SAVE STATUS
+===================================================== */
+
+.save-status {
+
+font-size:12px;
+
+margin-top:10px;
+
+min-height:18px;
+
+color:#8b95aa;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px) {
+
+.resume-builder {
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+@media print {
+
+.sidebar,
+.form-panel,
+.resume-top-actions {
+
+display:none !important;
+
+}
+
+.main {
+
+margin:0;
+
+width:100%;
+
+padding:0;
+
+}
+
+.resume-paper {
+
+box-shadow:none;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<span>7</span> WINGS
+
+</div>
+
+
+<div class="label">
+
+PLATFORM
+
+</div>
+
+
+<nav class="menu">
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+<a href="tasks.html">
+Task Manager
+</a>
+
+<a href="resume.html"
+class="active">
+Resume Builder
+</a>
+
+<a href="interview.html">
+Interview Prep
+</a>
+
+<a href="knowledge.html">
+AI Knowledge
+</a>
+
+<a href="calculator.html">
+Calculator
+</a>
+
+<a href="portfolio.html">
+Portfolio
+</a>
+
+<a href="information.html">
+Information
+</a>
+
+</nav>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<div class="topbar">
+
+<div class="eyebrow">
+RESUME BUILDER
+</div>
+
+
+<h1>
+Build your professional resume.
+</h1>
+
+
+<p class="subtitle">
+Choose your style, customize your resume and export it.
+</p>
+
+</div>
+
+
+
+<div class="resume-builder">
+
+
+<!-- =====================================================
+     LEFT FORM
+===================================================== -->
+
+<section class="panel form-panel"
+id="resumeForm">
+
+
+<div class="panel-title">
+Resume Details
+</div>
+
+<br>
+
+
+<div class="form-group">
+
+<label>
+Full Name
+</label>
+
+<input
+id="name"
+placeholder="Your Name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Professional Title
+</label>
+
+<input
+id="role"
+placeholder="ECE Student | Developer">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+id="email">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Phone
+</label>
+
+<input
+id="phone">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Location
+</label>
+
+<input
+id="location">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Career Objective
+</label>
+
+<textarea
+id="objective"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Education
+</label>
+
+<textarea
+id="education"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Skills
+</label>
+
+<input
+id="skills"
+placeholder="C++, HTML, CSS, JavaScript">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Projects
+</label>
+
+<textarea
+id="projects"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Experience / Internship
+</label>
+
+<textarea
+id="experience"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Certifications
+</label>
+
+<textarea
+id="certifications"></textarea>
+
+</div>
+
+
+<!-- =====================================================
+     TEMPLATE
+===================================================== -->
+
+<label>
+Template
+</label>
+
+
+<div class="template-buttons">
+
+
+<button
+type="button"
+class="small-btn active"
+onclick="setTemplate('modern',this)">
+
+Modern
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setTemplate('classic',this)">
+
+Classic
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setTemplate('minimal',this)">
+
+Minimal
+
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     FONT
+===================================================== -->
+
+<label>
+Font
+</label>
+
+
+<div class="font-buttons">
+
+
+<button
+type="button"
+class="small-btn active"
+onclick="setFont('Arial',this)">
+
+Arial
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setFont('Georgia',this)">
+
+Georgia
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setFont('Trebuchet MS',this)">
+
+Trebuchet
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setFont('Courier New',this)">
+
+Courier
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setFont('Verdana',this)">
+
+Verdana
+
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     THEME
+===================================================== -->
+
+<label>
+Theme
+</label>
+
+
+<div class="theme-buttons">
+
+
+<button
+type="button"
+class="small-btn active"
+onclick="setTheme('blue',this)">
+
+Blue
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setTheme('green',this)">
+
+Green
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setTheme('red',this)">
+
+Red
+
+</button>
+
+
+<button
+type="button"
+class="small-btn"
+onclick="setTheme('purple',this)">
+
+Purple
+
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     SAVE BUTTON
+===================================================== -->
+
+<button
+type="button"
+class="btn primary"
+onclick="saveResume()">
+
+Save Resume
+
+</button>
+
+
+<div
+id="saveStatus"
+class="save-status">
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     RIGHT SIDE
+===================================================== -->
+
+<section>
+
+
+<!-- =====================================================
+     PREVIEW HEADER
+===================================================== -->
+
+<div
+class="panel resume-top-actions">
+
+
+<div
+style="display:flex;justify-content:space-between;align-items:center;">
+
+
+<div class="panel-title">
+
+Live Preview
+
+</div>
+
+
+<button
+type="button"
+class="btn primary"
+onclick="window.print()">
+
+Print / Save PDF
+
+</button>
+
+
+</div>
+
+</div>
+
+
+<br>
+
+
+<!-- =====================================================
+     RESUME PAPER
+===================================================== -->
+
+<div
+id="resumePaper"
+class="resume-paper template-modern theme-blue">
+
+
+<div
+class="resume-name"
+id="previewName">
+
+Your Name
+
+</div>
+
+
+<div
+class="resume-role"
+id="previewRole">
+
+Professional Title
+
+</div>
+
+
+<div
+class="resume-contact"
+id="previewContact">
+
+email@example.com | Phone | Location
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div class="resume-section">
+
+<h3>
+PROFILE
+</h3>
+
+
+<p id="previewObjective">
+
+Your career objective will appear here.
+
+</p>
+
+</div>
+
+
+<!-- EDUCATION -->
+
+<div class="resume-section">
+
+<h3>
+EDUCATION
+</h3>
+
+
+<p id="previewEducation">
+
+Your education details.
+
+</p>
+
+</div>
+
+
+<!-- SKILLS -->
+
+<div class="resume-section">
+
+<h3>
+SKILLS
+</h3>
+
+
+<div
+class="skills"
+id="previewSkills">
+
+</div>
+
+</div>
+
+
+<!-- PROJECTS -->
+
+<div class="resume-section">
+
+<h3>
+PROJECTS
+</h3>
+
+
+<p id="previewProjects">
+
+</p>
+
+</div>
+
+
+<!-- EXPERIENCE -->
+
+<div class="resume-section">
+
+<h3>
+EXPERIENCE
+</h3>
+
+
+<p id="previewExperience">
+
+</p>
+
+</div>
+
+
+<!-- CERTIFICATIONS -->
+
+<div class="resume-section">
+
+<h3>
+CERTIFICATIONS
+</h3>
+
+
+<p id="previewCertifications">
+
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   API
+===================================================== */
+
+const API_URL = "/api/resumes";
+
+
+/* =====================================================
+   FIELDS
+===================================================== */
+
+const fields = [
+
+"name",
+"role",
+"email",
+"phone",
+"location",
+"objective",
+"education",
+"skills",
+"projects",
+"experience",
+"certifications"
+
+];
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentTemplate = "modern";
+
+let currentTheme = "blue";
+
+let currentFont = "Arial";
+
+let currentResumeId = null;
+
+
+/* =====================================================
+   LIVE TYPING
+===================================================== */
+
+fields.forEach(function(id) {
+
+document
+.getElementById(id)
+.addEventListener(
+"input",
+updatePreview
+);
+
+});
+
+
+/* =====================================================
+   UPDATE PREVIEW
+===================================================== */
+
+function updatePreview() {
+
+
+document.getElementById(
+"previewName"
+).textContent =
+
+document.getElementById(
+"name"
+).value ||
+
+"Your Name";
+
+
+document.getElementById(
+"previewRole"
+).textContent =
+
+document.getElementById(
+"role"
+).value ||
+
+"Professional Title";
+
+
+const email =
+document.getElementById(
+"email"
+).value.trim();
+
+
+const phone =
+document.getElementById(
+"phone"
+).value.trim();
+
+
+const location =
+document.getElementById(
+"location"
+).value.trim();
+
+
+document.getElementById(
+"previewContact"
+).textContent =
+
+[
+email,
+phone,
+location
+]
+.filter(Boolean)
+.join(" | ") ||
+
+"email@example.com | Phone | Location";
+
+
+document.getElementById(
+"previewObjective"
+).textContent =
+
+document.getElementById(
+"objective"
+).value ||
+
+"Your career objective will appear here.";
+
+
+document.getElementById(
+"previewEducation"
+).textContent =
+
+document.getElementById(
+"education"
+).value ||
+
+"Your education details.";
+
+
+document.getElementById(
+"previewProjects"
+).textContent =
+
+document.getElementById(
+"projects"
+).value;
+
+
+document.getElementById(
+"previewExperience"
+).textContent =
+
+document.getElementById(
+"experience"
+).value;
+
+
+document.getElementById(
+"previewCertifications"
+).textContent =
+
+document.getElementById(
+"certifications"
+).value;
+
+
+/* SKILLS */
+
+const skills =
+document.getElementById(
+"skills"
+).value
+.split(",")
+.map(function(skill) {
+
+return skill.trim();
+
+})
+.filter(Boolean);
+
+
+document.getElementById(
+"previewSkills"
+).innerHTML =
+
+skills.map(function(skill) {
+
+return `
+<span class="skill">
+${escapeHTML(skill)}
+</span>
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
+   TEMPLATE
+===================================================== */
+
+function setTemplate(
+template,
+button
+) {
+
+
+currentTemplate =
+template;
+
+
+applyDesign();
+
+
+setActive(
+".template-buttons",
+button
+);
+
+}
+
+
+/* =====================================================
+   THEME
+===================================================== */
+
+function setTheme(
+theme,
+button
+) {
+
+
+currentTheme =
+theme;
+
+
+applyDesign();
+
+
+setActive(
+".theme-buttons",
+button
+);
+
+}
+
+
+/* =====================================================
+   FONT
+===================================================== */
+
+function setFont(
+font,
+button
+) {
+
+
+currentFont =
+font;
+
+
+applyDesign();
+
+
+setActive(
+".font-buttons",
+button
+);
+
+}
+
+
+/* =====================================================
+   APPLY DESIGN
+===================================================== */
+
+function applyDesign() {
+
+
+const paper =
+document.getElementById(
+"resumePaper"
+);
+
+
+paper.className =
+
+"resume-paper " +
+"template-" +
+currentTemplate +
+" theme-" +
+currentTheme;
+
+
+paper.style.fontFamily =
+currentFont;
+
+}
+
+
+/* =====================================================
+   ACTIVE BUTTON
+===================================================== */
+
+function setActive(
+selector,
+activeButton
+) {
+
+
+document
+.querySelectorAll(
+selector + " .small-btn"
+)
+.forEach(function(button) {
+
+button.classList.remove(
+"active"
+);
+
+});
+
+
+activeButton.classList.add(
+"active"
+);
+
+}
+
+
+/* =====================================================
+   GET DATA
+===================================================== */
+
+function getResumeData() {
+
+
+const data = {};
+
+
+fields.forEach(function(id) {
+
+data[id] =
+document.getElementById(
+id
+).value;
+
+});
+
+
+data.template =
+currentTemplate;
+
+
+data.theme =
+currentTheme;
+
+
+data.font =
+currentFont;
+
+
+return data;
+
+}
+
+
+/* =====================================================
+   LOAD DATA INTO FORM
+===================================================== */
+
+function loadData(
+data
+) {
+
+
+fields.forEach(function(id) {
+
+if (
+data[id] !== undefined &&
+data[id] !== null
+) {
+
+document.getElementById(
+id
+).value =
+data[id];
+
+}
+
+});
+
+
+if (data.template) {
+
+currentTemplate =
+data.template;
+
+}
+
+
+if (data.theme) {
+
+currentTheme =
+data.theme;
+
+}
+
+
+if (data.font) {
+
+currentFont =
+data.font;
+
+}
+
+
+applyDesign();
+
+updatePreview();
+
+}
+
+
+/* =====================================================
+   SAVE RESUME
+===================================================== */
+
+async function saveResume() {
+
+
+const status =
+document.getElementById(
+"saveStatus"
+);
+
+
+const data =
+getResumeData();
+
+
+/*
+   Always keep a local backup.
+*/
+
+localStorage.setItem(
+"sevenWingsResume",
+JSON.stringify(data)
+);
+
+
+status.textContent =
+"Saving...";
+
+
+try {
+
+
+let response;
+
+
+/*
+   UPDATE EXISTING RESUME
+*/
+
+if (currentResumeId) {
+
+
+response =
+await fetch(
+API_URL +
+"/" +
+currentResumeId,
+{
+
+method:"PUT",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(data)
+
+}
+);
+
+}
+
+
+/*
+   CREATE NEW RESUME
+*/
+
+else {
+
+
+response =
+await fetch(
+API_URL,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(data)
+
+}
+);
+
+}
+
+
+const result =
+await response.json();
+
+
+if (!response.ok) {
+
+throw new Error(
+result.message ||
+"Save failed."
+);
+
+}
+
+
+if (
+result.resume &&
+result.resume.id
+) {
+
+currentResumeId =
+result.resume.id;
+
+}
+
+
+status.textContent =
+"✓ Saved to Firebase";
+
+
+alert(
+"Resume saved successfully!"
+);
+
+
+}
+catch(error) {
+
+
+console.error(
+"Resume save error:",
+error
+);
+
+
+/*
+   Local backup still exists.
+*/
+
+status.textContent =
+"Saved locally";
+
+
+alert(
+"Resume saved locally, but Firebase save failed."
+);
+
+}
+
+}
+
+
+/* =====================================================
+   LOAD FROM FIREBASE
+===================================================== */
+
+async function loadResume() {
+
+
+try {
+
+
+const response =
+await fetch(
+API_URL
+);
+
+
+if (!response.ok) {
+
+throw new Error(
+"Resume API failed"
+);
+
+}
+
+
+const result =
+await response.json();
+
+
+if (
+result.success &&
+result.resumes &&
+result.resumes.length > 0
+) {
+
+
+const resume =
+result.resumes[0];
+
+
+currentResumeId =
+resume.id;
+
+
+loadData(
+resume
+);
+
+
+return;
+
+}
+
+
+/*
+   No Firebase resume yet.
+*/
+
+loadLocal();
+
+}
+catch(error) {
+
+
+console.log(
+"Firebase resume load failed:",
+error
+);
+
+
+loadLocal();
+
+}
+
+}
+
+
+/* =====================================================
+   LOCAL BACKUP
+===================================================== */
+
+function loadLocal() {
+
+
+const saved =
+localStorage.getItem(
+"sevenWingsResume"
+);
+
+
+if (!saved) {
+
+updatePreview();
+
+return;
+
+}
+
+
+try {
+
+
+const data =
+JSON.parse(saved);
+
+
+loadData(data);
+
+}
+catch(error) {
+
+console.error(
+"Local resume error:",
+error
+);
+
+updatePreview();
+
+}
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+text
+) {
+
+
+const div =
+document.createElement(
+"div"
+);
+
+
+div.textContent =
+text;
+
+
+return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+applyDesign();
+
+updatePreview();
+
+loadResume();
+
+</script>
+
+
+</body>
+
+</html>

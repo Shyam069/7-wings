@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>Interview Prep | 7 WINGS</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
+
+.question-card {
+    padding:30px;
+}
+
+.question {
+    font-size:25px;
+    line-height:1.5;
+    margin:20px 0;
+}
+
+.answer {
+    display:none;
+    background:#0b0f19;
+    border:1px solid #272e42;
+    border-radius:12px;
+    padding:20px;
+    line-height:1.7;
+    color:#b9c0d2;
+    margin-bottom:20px;
+}
+
+.answer.show {
+    display:block;
+}
+
+.category-buttons {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<aside class="sidebar">
+
+<div class="logo">
+<span>7</span> WINGS
+</div>
+
+<div class="label">
+PLATFORM
+</div>
+
+<nav class="menu">
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+<a href="tasks.html">
+Task Manager
+</a>
+
+<a href="resume.html">
+Resume Builder
+</a>
+
+<a href="interview.html" class="active">
+Interview Prep
+</a>
+
+<a href="knowledge.html">
+AI Knowledge
+</a>
+
+<a href="calculator.html">
+Calculator
+</a>
+
+<a href="portfolio.html">
+Portfolio
+</a>
+
+<a href="information.html">
+Information
+</a>
+
+</nav>
+
+</aside>
+
+
+<main class="main">
+
+
+<div class="topbar">
+
+<div class="eyebrow">
+INTERVIEW PREP
+</div>
+
+<h1>
+Prepare. Practice. Perform.
+</h1>
+
+<p class="subtitle">
+Build confidence through structured interview practice.
+</p>
+
+</div>
+
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<div class="stat-title">
+Total Questions
+</div>
+
+<div
+    class="stat-value"
+    id="total"
+>
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-title">
+Practiced
+</div>
+
+<div
+    class="stat-value"
+    id="practiced"
+>
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-title">
+Progress
+</div>
+
+<div
+    class="stat-value"
+    id="progress"
+>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="category-buttons">
+
+
+<button
+    class="btn primary"
+    onclick="changeCategory('Technical')"
+>
+Technical
+</button>
+
+
+<button
+    class="btn"
+    onclick="changeCategory('HR')"
+>
+HR
+</button>
+
+
+<button
+    class="btn"
+    onclick="changeCategory('Aptitude')"
+>
+Aptitude
+</button>
+
+
+</div>
+
+
+<div class="panel question-card">
+
+
+<div
+    id="categoryLabel"
+    class="eyebrow"
+>
+TECHNICAL
+</div>
+
+
+<div
+    id="question"
+    class="question"
+>
+</div>
+
+
+<div
+    id="answer"
+    class="answer"
+>
+</div>
+
+
+<div
+    style="
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+    "
+>
+
+
+<button
+    class="btn primary"
+    onclick="toggleAnswer()"
+>
+Show Answer
+</button>
+
+
+<button
+    class="btn"
+    onclick="previousQuestion()"
+>
+← Previous
+</button>
+
+
+<button
+    class="btn"
+    onclick="nextQuestion()"
+>
+Next →
+</button>
+
+
+<button
+    class="btn success"
+    onclick="markPracticed()"
+>
+✓ Mark Practiced
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   FIREBASE / BACKEND API
+   ========================================================= */
+
+const API_URL =
+    "/api/interview/progress";
+
+
+/* =========================================================
+   INTERVIEW QUESTION BANK
+   ========================================================= */
+
+const bank = {
+
+
+Technical: [
+
+[
+"What is Object-Oriented Programming?",
+"OOP is a programming approach based on objects and classes. Its main concepts include encapsulation, inheritance, polymorphism and abstraction."
+],
+
+[
+"What is a pointer?",
+"A pointer is a variable that stores the memory address of another variable."
+],
+
+[
+"What is a class in C++?",
+"A class is a user-defined type that combines data and functions into one unit."
+],
+
+[
+"What is inheritance?",
+"Inheritance allows a class to acquire properties and behavior from another class."
+]
+
+],
+
+
+HR: [
+
+[
+"Tell me about yourself.",
+"Give a short introduction covering your education, skills, projects and career interests."
+],
+
+[
+"What are your strengths?",
+"Choose genuine strengths and support them with examples from your projects, academics or teamwork."
+],
+
+[
+"Why should we hire you?",
+"Explain the skills, project experience and attitude you can bring to the role."
+],
+
+[
+"Where do you see yourself in five years?",
+"Explain how you want to grow technically and professionally while taking greater responsibility."
+]
+
+],
+
+
+Aptitude: [
+
+[
+"What is 20% of 250?",
+"20% × 250 = 50."
+],
+
+[
+"What is the average of 10, 20 and 30?",
+"(10 + 20 + 30) / 3 = 20."
+],
+
+[
+"A train travels 120 km in 2 hours. What is its speed?",
+"Speed = Distance / Time = 120 / 2 = 60 km/h."
+],
+
+[
+"What is the next number: 2, 4, 8, 16, ?",
+"The numbers are multiplied by 2. The answer is 32."
+]
+
+]
+
+};
+
+
+/* =========================================================
+   CURRENT STATE
+   ========================================================= */
+
+let category = "Technical";
+
+let index = 0;
+
+let practiced = {};
+
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function render() {
+
+    const item =
+        bank[category][index];
+
+
+    document
+        .getElementById("categoryLabel")
+        .textContent =
+        category.toUpperCase();
+
+
+    document
+        .getElementById("question")
+        .textContent =
+        item[0];
+
+
+    document
+        .getElementById("answer")
+        .textContent =
+        item[1];
+
+
+    document
+        .getElementById("answer")
+        .classList
+        .remove("show");
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   SHOW / HIDE ANSWER
+   ========================================================= */
+
+function toggleAnswer() {
+
+    document
+        .getElementById("answer")
+        .classList
+        .toggle("show");
+
+}
+
+
+/* =========================================================
+   NEXT QUESTION
+   ========================================================= */
+
+function nextQuestion() {
+
+    index++;
+
+
+    if (
+        index >=
+        bank[category].length
+    ) {
+
+        index = 0;
+
+    }
+
+
+    render();
+
+}
+
+
+/* =========================================================
+   PREVIOUS QUESTION
+   ========================================================= */
+
+function previousQuestion() {
+
+    index--;
+
+
+    if (index < 0) {
+
+        index =
+            bank[category].length - 1;
+
+    }
+
+
+    render();
+
+}
+
+
+/* =========================================================
+   CHANGE CATEGORY
+   ========================================================= */
+
+function changeCategory(value) {
+
+    category = value;
+
+    index = 0;
+
+    render();
+
+}
+
+
+/* =========================================================
+   MARK PRACTICED
+   ========================================================= */
+
+async function markPracticed() {
+
+    const key =
+        `${category}-${index}`;
+
+
+    if (practiced[key]) {
+
+        alert(
+            "This question is already marked as practiced."
+        );
+
+        return;
+
+    }
+
+
+    /* Mark question as practiced locally */
+
+    practiced[key] = true;
+
+
+    updateStats();
+
+
+    /* Local backup */
+
+    localStorage.setItem(
+        "sevenWingsInterviewProgress",
+        JSON.stringify(practiced)
+    );
+
+
+    try {
+
+        /*
+           IMPORTANT:
+
+           Backend expects:
+           {
+               progress: {...}
+           }
+
+           So we send practiced as progress.
+        */
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            progress: practiced
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ||
+                "Firebase save failed"
+            );
+
+        }
+
+
+        /*
+           Update local copy from
+           the successful backend response.
+        */
+
+        if (
+            result.progress &&
+            typeof result.progress === "object"
+        ) {
+
+            practiced =
+                result.progress;
+
+
+            localStorage.setItem(
+                "sevenWingsInterviewProgress",
+                JSON.stringify(practiced)
+            );
+
+        }
+
+
+        updateStats();
+
+
+        alert(
+            "Progress saved successfully!"
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Interview Firebase save error:",
+            error
+        );
+
+
+        alert(
+            "Progress saved locally, but Firebase save failed."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE STATS
+   ========================================================= */
+
+function updateStats() {
+
+    let total = 0;
+
+
+    Object.values(bank).forEach(
+        questions => {
+
+            total +=
+                questions.length;
+
+        }
+    );
+
+
+    const count =
+        Object.keys(practiced).length;
+
+
+    document
+        .getElementById("total")
+        .textContent =
+        total;
+
+
+    document
+        .getElementById("practiced")
+        .textContent =
+        count;
+
+
+    document
+        .getElementById("progress")
+        .textContent =
+        Math.round(
+            (count / total) * 100
+        ) + "%";
+
+}
+
+
+/* =========================================================
+   LOAD PROGRESS FROM FIREBASE
+   ========================================================= */
+
+async function loadProgressFromFirebase() {
+
+    try {
+
+        const response =
+            await fetch(API_URL);
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            response.ok &&
+            result.success &&
+            result.progress
+        ) {
+
+            practiced =
+                result.progress;
+
+
+            /* Save Firebase copy locally */
+
+            localStorage.setItem(
+                "sevenWingsInterviewProgress",
+                JSON.stringify(practiced)
+            );
+
+
+            updateStats();
+
+
+            return true;
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Interview Firebase load error:",
+            error
+        );
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================================================
+   LOAD LOCAL BACKUP
+   ========================================================= */
+
+function loadLocalProgress() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+
+                localStorage.getItem(
+                    "sevenWingsInterviewProgress"
+                ) || "{}"
+
+            );
+
+
+        if (
+            saved &&
+            typeof saved === "object"
+        ) {
+
+            practiced =
+                saved;
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Local interview progress error:",
+            error
+        );
+
+
+        practiced = {};
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+async function initializeInterview() {
+
+    /*
+       Load local progress first.
+       This makes the page respond immediately.
+    */
+
+    loadLocalProgress();
+
+
+    render();
+
+
+    /*
+       Then load the latest progress
+       from Firebase.
+    */
+
+    await loadProgressFromFirebase();
+
+
+    render();
+
+}
+
+
+initializeInterview();
+
+
+</script>
+
+
+</body>
+
+</html>

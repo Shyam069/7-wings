@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dashboard | 7 WINGS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+<div class="logo">
+<span>7</span> WINGS
+</div>
+
+<div class="label">PLATFORM</div>
+
+<nav class="menu">
+
+<a href="dashboard.html" class="active">Dashboard</a>
+<a href="tasks.html">Task Manager</a>
+<a href="resume.html">Resume Builder</a>
+<a href="interview.html">Interview Prep</a>
+<a href="knowledge.html">AI Knowledge</a>
+<a href="calculator.html">Calculator</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="information.html">Information</a>
+
+</nav>
+
+</aside>
+
+
+<main class="main">
+
+<div class="topbar">
+
+<div>
+<div class="eyebrow">7 WINGS / DASHBOARD</div>
+
+<h1>Good evening 👋</h1>
+
+<p class="subtitle">
+Your complete student productivity workspace.
+</p>
+</div>
+
+</div>
+
+
+<section class="stats">
+
+<div class="stat-card">
+<div class="stat-title">Active Tasks</div>
+<div class="stat-value" id="taskCount">0</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-title">Resume Progress</div>
+<div class="stat-value" id="resumeProgress">0%</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-title">Interview Practice</div>
+<div class="stat-value" id="interviewProgress">0%</div>
+</div>
+
+</section>
+
+
+<div class="grid-2">
+
+
+<div class="panel">
+
+<div class="panel-header">
+<div class="panel-title">Today's Workspace</div>
+<a href="tasks.html" class="btn">Open Tasks</a>
+</div>
+
+<p class="subtitle">
+Manage your tasks, build your resume, prepare for interviews
+and access your knowledge from one place.
+</p>
+
+<br>
+
+<div class="grid-2">
+
+<a href="tasks.html" class="btn">
+📋 Task Manager
+</a>
+
+<a href="resume.html" class="btn">
+📄 Resume Builder
+</a>
+
+<a href="interview.html" class="btn">
+🎯 Interview Prep
+</a>
+
+<a href="knowledge.html" class="btn">
+✦ AI Knowledge
+</a>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+<div class="panel-title">Quick Actions</div>
+</div>
+
+<div class="grid-2">
+
+<a href="calculator.html" class="btn">
+🧮 Calculator
+</a>
+
+<a href="portfolio.html" class="btn">
+💼 Portfolio
+</a>
+
+<a href="information.html" class="btn">
+📰 Information
+</a>
+
+<a href="resume.html" class="btn primary">
+Build Resume →
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+const tasks = JSON.parse(
+localStorage.getItem("sevenWingsTasks") || "[]"
+);
+
+document.getElementById("taskCount").textContent =
+tasks.filter(t => !t.completed).length;
+
+
+const resume =
+JSON.parse(localStorage.getItem("sevenWingsResume") || "{}");
+
+let resumeFields = [
+"name",
+"role",
+"email",
+"phone",
+"location",
+"objective",
+"education",
+"skills",
+"projects",
+"experience",
+"certifications"
+];
+
+let filled = resumeFields.filter(
+field => resume[field] && resume[field].trim()
+).length;
+
+document.getElementById("resumeProgress").textContent =
+Math.round((filled / resumeFields.length) * 100) + "%";
+
+
+const interviewProgress =
+JSON.parse(
+localStorage.getItem("sevenWingsInterviewProgress") || "{}"
+);
+
+const practiced =
+Object.keys(interviewProgress).length;
+
+document.getElementById("interviewProgress").textContent =
+practiced + " practiced";
+
+</script>
+
+</body>
+</html>
